@@ -1,0 +1,11 @@
+{
+    "doxdocgen.generic.authorTag": "@author Jan Chaloupka (xchalo16)\n@author Michal Krůl (xkrulm00)",
+    "doxdocgen.file.fileOrder": [
+        "file",
+        "empty",
+        "author",
+        "empty",
+        "brief",
+        "custom"
+    ]
+}

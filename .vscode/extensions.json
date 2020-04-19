@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "ms-vscode.cpptools",
+        "cschlosser.doxdocgen",
+        "EditorConfig.EditorConfig",
+        "ms-vscode.cmake-tools",
+        "tonka3000.qtvsctools"
+    ]
+}

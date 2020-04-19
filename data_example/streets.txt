@@ -1,0 +1,5 @@
+#id,startX,startY,stopX,stopY,stop,speed,displayname
+hlavn,0,0,1,0,0.5,1,Hlavní nádraží
+rovna,1,0,1,1,0.4,0.8,Rovná
+horak,1,1,2,1,-1,0.8,Horákova
+malin,2,1,0,0,0.7,1,Malinovského náměstí
