@@ -35,7 +35,3 @@ list<Line> Lines::GetAllLines() {
 int Lines::GetLenght() {
     return lenght;
 }
-
-
-
-

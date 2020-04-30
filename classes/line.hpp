@@ -4,6 +4,8 @@
 #include <string>
 #include <list>
 
+#include "stop.hpp"
+
 using namespace std;
 
 class Line {
