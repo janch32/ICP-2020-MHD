@@ -17,6 +17,8 @@ class Stop {
         Stop();
         Stop(string n, Position p);
         ~Stop();
+        string GetName();
+        Position GetPosition();
 };
 
 #endif

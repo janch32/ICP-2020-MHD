@@ -13,7 +13,13 @@ Stop::Stop(string n, Position p){
     position= p;
 }
 
-Stop::~Stop()
-{
+Stop::~Stop(){}
+
+string Stop::GetName(){
+    return name;
+}
+
+Position Stop::GetPosition(){
+    return position;
 }
 
