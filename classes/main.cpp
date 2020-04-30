@@ -7,6 +7,7 @@
 #include "line.hpp"
 #include "street.hpp"
 #include "vehicle.hpp"
+#include "vehicles.hpp"
 
 using namespace std;
 
@@ -24,6 +25,9 @@ int main() {
     Street street("karni", "Karnikova", 1.0, Position(1,1), Position(1,2));
 
     Clock clock;
+
+    Vehicles vehicles;
+    vehicles.AddVehicle(vehicle);
 
     return 0;
 }

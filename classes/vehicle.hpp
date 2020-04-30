@@ -3,6 +3,11 @@
 
 #include <string>
 
+#include "position.hpp"
+#include "stop.hpp"
+#include "line.hpp"
+#include "street.hpp"
+
 using namespace std;
 
 class Vehicle {
@@ -15,8 +20,10 @@ class Vehicle {
         Street on_street;
 
     public:
+        Vehicle();
         Vehicle(Line l, int n, Position position);
         ~Vehicle();
+        int GetIdNumber();
         void SetPosition(Position position);
         Position GetPosition();
         Line GetLine();

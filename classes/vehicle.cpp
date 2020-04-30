@@ -4,14 +4,18 @@
 #include "line.hpp"
 #include "vehicle.hpp"
 
+Vehicle::Vehicle(){}
+
 Vehicle::Vehicle(Line l, int n, Position position){
     line = l;
     number = n;
     map_position = position;
 }
 
-Vehicle::~Vehicle()
-{
+Vehicle::~Vehicle(){}
+
+int Vehicle::GetIdNumber(){
+    return number;
 }
 
 void Vehicle::SetPosition(Position position) {
