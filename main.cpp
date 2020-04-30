@@ -1,12 +1,3 @@
-/**
- * @file main.cpp
- *
- * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
- *
- * Hlavní vstupní bod aplikace
- */
-
 #include "mainwindow.h"
 #include <QApplication>
 

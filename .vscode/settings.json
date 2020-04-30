@@ -7,5 +7,9 @@
         "empty",
         "brief",
         "custom"
-    ]
+    ],
+    "cmake.configureOnOpen": false,
+    "files.associations": {
+        "*.tcc": "cpp"
+    }
 }
