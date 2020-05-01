@@ -8,6 +8,9 @@
 #include "street.hpp"
 #include "vehicle.hpp"
 #include "vehicles.hpp"
+#include "stops.hpp"
+#include "streets.hpp"
+#include "lines.hpp"
 
 using namespace std;
 
@@ -28,6 +31,11 @@ int main() {
 
     Vehicles vehicles;
     vehicles.AddVehicle(vehicle);
-
+    Lines lines;
+    lines.AddLine(line);
+    Streets streets;
+    streets.AddStreet(street);
+    Stops stops_c;
+    stops_c.AddStop(stop);
     return 0;
 }
