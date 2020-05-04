@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>590</width>
+    <height>374</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>590</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuSoubor">
+    <property name="title">
+     <string>Soubor</string>
+    </property>
+    <addaction name="actionNa_st_simulaci"/>
+    <addaction name="actionZnovu_na_st"/>
+    <addaction name="separator"/>
+    <addaction name="actionZav_t"/>
+   </widget>
+   <addaction name="menuSoubor"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <action name="actionNa_st_simulaci">
+   <property name="text">
+    <string>Načíst simulaci...</string>
+   </property>
+  </action>
+  <action name="actionZav_t">
+   <property name="text">
+    <string>Zavřít</string>
+   </property>
+  </action>
+  <action name="actionZnovu_na_st">
+   <property name="text">
+    <string>Znovu načíst</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

@@ -7,10 +7,14 @@
  *
  */
 
+#ifndef PARSER
+#define PARSER
+
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -34,11 +38,11 @@ protected:
      * Načte do ukazatele řetězce, které jsou na řádku odděleny znakem
      * definovaným v PARSE_DELIMETER
      *
-     * @param parts Ukazatel na pole, kam se uloží načtené řetězce
+     * @param parts Ukazatel na vektor, kam se uloží načtené řetězce.
      * @return int Počet načtených rětězců. Nula, pokud pokud již není
      * co k přečtení (konec souboru)
      */
-    int ReadLine(string** parts);
+    int ReadLine(vector<string> *parts);
 
     /**
      * Korektně uzavře otevřený soubor
@@ -50,3 +54,5 @@ private:
      */
     ifstream* ParsedFile = nullptr;
 };
+
+#endif

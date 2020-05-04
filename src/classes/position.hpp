@@ -7,12 +7,12 @@ class Position {
         int y;
     public:
         Position();
-        Position(int a, int b);
+        Position(int x, int y);
         ~Position();
         int GetXPosition();
         int GetYPosition();
-        void SetXPosition(int a);
-        void SetYPosition(int b);
+        void SetXPosition(int n);
+        void SetYPosition(int n);
 };
 
 #endif
