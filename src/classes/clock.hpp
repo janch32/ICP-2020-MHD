@@ -3,13 +3,16 @@
 
 class Clock {
     private:
-        int time;
+        int timestamp;
         float speed;
+        int day;
     public:
         Clock();
         ~Clock();
-        int GetTime();
-        void SetTime(int t);
+        int GetTimestamp();
+        void SetTimestamp(int t);
+        void GetTimeFromTimestamp(int *hours, int *minutes);
+        int GetTimestampFromTime(int hours, int minutes);
         float GetSpeed();
         void SetSpeed(float s);
         void Tick();

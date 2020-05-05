@@ -3,18 +3,30 @@
 using namespace std;
 
 Clock::Clock() {
-    time = 0;
+    timestamp = 0;
     speed = 1;
+    day = 0;
 }
 
 Clock::~Clock(){}
 
-int Clock::GetTime() {
-    return time;
+int Clock::GetTimestamp() {
+    return timestamp;
 }
 
-void Clock::SetTime(int t) {
-    time = t;
+void Clock::SetTimestamp(int t) {
+    timestamp = t;
+}
+
+void Clock::GetTimeFromTimestamp(int *hours, int *minutes) {
+    int time = timestamp / 1440;
+    *hours = time / 60;
+    *minutes = time % 60;
+}
+
+int Clock::GetTimestampFromTime(int hours, int minutes) {
+    int m_hours = hours*60;
+    return m_hours + minutes + day * 1440;
 }
 
 float Clock::GetSpeed() {
@@ -26,7 +38,10 @@ void Clock::SetSpeed(float s) {
 }
 
 void Clock::Tick() {
-    time += 1;
+    timestamp += 1;
+    if (!(timestamp % 1440)) {
+        day += 1;
+    }
 }
 
 void Clock::Accelerate() {

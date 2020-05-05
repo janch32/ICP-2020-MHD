@@ -29,6 +29,7 @@ class Vehicle {
         Line GetLine();
         void ArriveOnStop(Stop next);
         Stop TellStop();
+        list<string> journey;
 };
 
 #endif
