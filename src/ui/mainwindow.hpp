@@ -15,6 +15,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void closeApp();
+    void selectSimulationFolder();
+
 private:
     Ui::MainWindow *ui;
 };
