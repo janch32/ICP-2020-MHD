@@ -7,9 +7,9 @@ TARGET = icp
 TEMPLATE = app
 
 SOURCES += main.cpp\
-    functions/function.cpp \
         functions/initialize_function_library.cpp \
         functions/move_functions_library.cpp \
+    functions/simulate.cpp \
     methods/initialize_library.cpp \
         methods/method.cpp \
     methods/move_library.cpp \
@@ -33,6 +33,7 @@ SOURCES += main.cpp\
 HEADERS  += \
     functions/initialize_function_library.hpp \
     functions/move_functions_library.hpp \
+    functions/simulate.hpp \
     methods/initialize_library.hpp \
     methods/move_library.hpp \
     model/eventtable.hpp \
