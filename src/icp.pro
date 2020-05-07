@@ -15,7 +15,9 @@ SOURCES += main.cpp\
         parser/parseroutes.cpp \
         parser/parsestreets.cpp \
         parser/parsetimetables.cpp \
-        ui/mainwindow.cpp
+        ui/mainwindow.cpp \
+        ui/map.cpp \
+        ui/mapstreet.cpp
 
 HEADERS  += \
     model/line.hpp \
@@ -26,7 +28,9 @@ HEADERS  += \
     parser/parseroutes.hpp \
     parser/parsestreets.hpp \
     parser/parsetimetables.hpp \
-    ui/mainwindow.hpp
+    ui/mainwindow.hpp \
+    ui/map.hpp \
+    ui/mapstreet.hpp
 
 FORMS    += \
     ui/mainwindow.ui

@@ -1,4 +1,4 @@
-hlavn,0,0,1,0,0.5,Hlavní nádraží
-rovna,1,0,1,1,0.4,Rovná
-horak,1,1,2,1,-1,Horákova
-malin,2,1,0,0,0.7,Malinovského náměstí
+hlavn,0,0,100,0,0.8,Hlavní nádraží
+rovna,100,0,80,150,0.4,Rovná
+horak,80,150,-50,100,-1,Horákova
+malin,-50,100,0,0,0.7,Malinovského náměstí

@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "../model/street.hpp"
 #include <QMainWindow>
 
 namespace Ui {
@@ -18,6 +19,7 @@ public:
 public slots:
     void closeApp();
     void selectSimulationFolder();
+    void selectStreet(Street *street);
 
 private:
     Ui::MainWindow *ui;

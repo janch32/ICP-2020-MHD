@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionClose, SIGNAL(triggered()), this, SLOT(closeApp()));
     connect(ui->actionOpenSim, SIGNAL(triggered()), this, SLOT(selectSimulationFolder()));
+    connect(ui->map, &Map::streetSelected, this, &MainWindow::selectStreet);
+    connect(ui->streetFlow, SIGNAL(valueChanged(int)), ui->map, SLOT(changeStreetTraffic(int)));
     selectSimulationFolder();
 }
 
@@ -68,6 +70,21 @@ void MainWindow::selectSimulationFolder()
 
     for(const auto l: lines){
         qDebug() << l.getID() << " " << l.getDisplayNumber() << " " << l.getDestination() << " " << l.getRoute();
+    }
+
+    ui->map->setStreets(streets);
+}
+
+void MainWindow::selectStreet(Street *street)
+{
+    if(street == nullptr){
+        ui->streetParams->setEnabled(false);
+        ui->streetName->setText("Nastavení průjezdnosti");
+        ui->streetFlow->setValue(100);
+    }else{
+        ui->streetParams->setEnabled(true);
+        ui->streetName->setText(street->getName());
+        ui->streetFlow->setValue(street->getTrafficFlow()*100);
     }
 }
 
