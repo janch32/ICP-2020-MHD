@@ -1,9 +1,9 @@
 #ifndef LINES
 #define LINES
 
-#include <map>
-#include <string>
-#include <list>
+#include <QMap>
+#include <QString>
+#include <QList>
 
 #include "line.hpp"
 
@@ -11,15 +11,14 @@ using namespace std;
 
 class Lines {
     private:
-        map<int, Line> lines;
-        int lenght;
+        QMap<QString, Line> lines;
     public:
         Lines();
         ~Lines();
         void AddLine(Line line);
-        int RemoveLine(int number);
-        Line GetLine(int number);
-        list<Line> GetAllLines();
+        int RemoveLine(QString id);
+        Line GetLine(QString id);
+        QList<Line> GetAllLines();
         int GetLenght();
 
 };

@@ -16,11 +16,14 @@ class Street {
         int traffic_speed;
         Position far_corner;
         Position close_corner;
+        float length;
     public:
         Street();
         Street(string ID, string n, float speed, Position far_e, Position close_e);
         ~Street();
         string GetID();
+        float GetLength();
+        float GetRemainingLength(int percentualy);
 };
 
 #endif
