@@ -1,5 +1,13 @@
 #include "line.hpp"
 
+Line::Line()
+{
+    id = "";
+    displayNumber = "--";
+    destination = "UNKNOWN";
+    streets = LineRoute();
+}
+
 Line::Line(QString id)
 {
     this->id = id;

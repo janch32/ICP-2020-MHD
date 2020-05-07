@@ -18,6 +18,7 @@ private:
     LineRoute streets;
     Timetable timetable;
 public:
+    Line();
     Line(QString id);
     Line(QString id, QString displayNumber, QString destination);
     Line(QString id, QString displayNumber, QString destination, LineRoute streets);

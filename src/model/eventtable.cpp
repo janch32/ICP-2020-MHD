@@ -1,7 +1,17 @@
 #include "eventtable.hpp"
 
+Action::Action() {
+    type = ActionType::End;
+}
+
+
 Action::Action(ActionType a) {
     type = a;
+}
+
+ActionType Action::GetType()
+{
+    return type;
 }
 
 Event::Event(QString line, Action action){

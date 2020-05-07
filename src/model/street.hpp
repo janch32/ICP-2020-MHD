@@ -16,6 +16,7 @@ private:
     float trafficFlow;
 
 public:
+    Street();
     Street(QString id);
     Street(QString id, QString name, QPoint beginPos, QPoint endPos, float stopPos);
 

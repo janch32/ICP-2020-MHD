@@ -1,5 +1,5 @@
-#ifndef SIMULATE
-#define SIMULATE
+#ifndef SIMULATION
+#define SIMULATION
 
 #include <QThread>
 #include <QList>
@@ -12,19 +12,17 @@
 #include "../methods/initialize_library.hpp"
 #include "../methods/move_library.hpp"
 
-typedef struct SimulationData {
+class Simulation{
+private:
     Streets streets;
     Lines lines;
     VehicleEventTable event_table;
     QTime time;
     int sleeptime;
     Vehicles vehicles;
-} SData;
-
-extern SData simulation_data;
-
-void Simulate(int seconds);
-
-void InitializeSimulation(Streets *streets, Lines *lines, StreetList parsed_streets, QHash<QString, Line> parsed_lines, VehicleEventTable table);
+public:
+    void Simulate(int seconds);
+    void InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines, int start_hours, int start_minutes);
+};
 
 #endif

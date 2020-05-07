@@ -16,7 +16,7 @@ void InitializeLines(Lines *lines,  QHash<QString, Line> parsed_lines) {
         lines->AddLine(i.value());
 }
 
-void InitializeEventTable(Lines lines, VehicleEventTable vehicle_table) {
+void InitializeVehicleEventTable(Lines lines, VehicleEventTable vehicle_table) {
     QHash<QString, QTime> line_spawn;
 
     QList<Line> lines_list = lines.GetAllLines();

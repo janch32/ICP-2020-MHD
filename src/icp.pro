@@ -6,36 +6,30 @@ CONFIG += c++17
 TARGET = icp
 TEMPLATE = app
 
-SOURCES += main.cpp\
-        functions/initialize_function_library.cpp \
-        functions/move_functions_library.cpp \
-    functions/simulate.cpp \
+SOURCES += main.cpp \
+    functions/simulation.cpp \
     methods/initialize_library.cpp \
-        methods/method.cpp \
     methods/move_library.cpp \
     model/eventtable.cpp \
-        model/line.cpp \
-        parser/csvparser.cpp \
-        model/street.cpp \
-        model/timetable.cpp \
-        parser/parselines.cpp \
-        parser/parseroutes.cpp \
-        parser/parsestreets.cpp \
-        parser/parsetimetables.cpp \
-        ui/mainwindow.cpp \
-        ui/map.cpp \
-        ui/mapstreet.cpp
-        model/vehicle.cpp \
-        model/vehicles.cpp \
-        model/streets.cpp \
-        model/lines.cpp \
+    model/line.cpp \
+    parser/csvparser.cpp \
+    model/street.cpp \
+    model/timetable.cpp \
+    parser/parselines.cpp \
+    parser/parseroutes.cpp \
+    parser/parsestreets.cpp \
+    parser/parsetimetables.cpp \
+    ui/mainwindow.cpp \
+    ui/map.cpp \
+    ui/mapstreet.cpp \
+    model/vehicle.cpp \
+    model/vehicles.cpp \
+    model/streets.cpp \
+    model/lines.cpp \
 
 
-
-HEADERS  += \
-    functions/initialize_function_library.hpp \
-    functions/move_functions_library.hpp \
-    functions/simulate.hpp \
+HEADERS += \
+    functions/simulation.hpp \
     methods/initialize_library.hpp \
     methods/move_library.hpp \
     model/eventtable.hpp \
@@ -49,12 +43,12 @@ HEADERS  += \
     parser/parsetimetables.hpp \
     ui/mainwindow.hpp \
     ui/map.hpp \
-    ui/mapstreet.hpp
+    ui/mapstreet.hpp\
     model/vehicle.hpp \
     model/vehicles.hpp \
     model/streets.hpp \
     model/lines.hpp \
 
 
-FORMS    += \
+FORMS += \
     ui/mainwindow.ui

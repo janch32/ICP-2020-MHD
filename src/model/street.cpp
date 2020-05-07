@@ -1,5 +1,15 @@
 #include "street.hpp"
 
+Street::Street()
+{
+    id = "";
+    name = "UNNAMED STREET";
+    begin = QPoint(0, 0);
+    end = QPoint(0, 0);
+    stopPos = -1.0;
+    trafficFlow = 1.0;
+}
+
 Street::Street(QString id)
 {
     this->id = id;

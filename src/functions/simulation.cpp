@@ -1,15 +1,12 @@
-#include "simulate.hpp"
+#include "simulation.hpp"
 
 /**
  * @brief Simulate
  * @param seconds
  */
-void Simulate(int seconds) {
-    VehicleEventTable ve_table = simulation_data.event_table;
-    Lines lines = simulation_data.lines;
-    Streets streets = simulation_data.streets;
-    QTime time = simulation_data.time;
-    QTime final_time = simulation_data.time.addSecs(seconds);
+void Simulation::Simulate(int seconds) {
+    VehicleEventTable ve_table = event_table;
+    QTime final_time = time.addSecs(seconds);
     int vehicle_count = 0;
 
     QList<Event> curr_events;
@@ -46,7 +43,7 @@ void Simulate(int seconds) {
                         }
                     }
 
-                    simulation_data.vehicles.AddVehicle(SpawnVehicle(lines.GetLine(i->line), vehicle_count, position, lines.GetLine(i->line).getRoute(), entry));
+                    this->vehicles.AddVehicle(SpawnVehicle(lines.GetLine(i->line), vehicle_count, position, lines.GetLine(i->line).getRoute(), entry));
                     vehicle_count++;
                     break;
 
@@ -61,37 +58,36 @@ void Simulate(int seconds) {
                     break;
             }
 
-            vehicles = simulation_data.vehicles.GetAllVehicles();
+            vehicles = this->vehicles.GetAllVehicles();
             for( v = vehicles.begin(); v != vehicles.end(); ++v) {
                 if (v->TellStop() == "ghost_street") {
                     v->CommenceRide(time);
-                    v->SetStep(ComputeStep(simulation_data.vehicles.GetVehicle(v->GetIdNumber()), simulation_data.streets, time));
+                    v->SetStep(ComputeStep(this->vehicles.GetVehicle(v->GetIdNumber()), streets, time));
                 }
                 else{
-                    if(simulation_data.vehicles.GetVehicle(v->GetIdNumber()).GetSteps() == 1) {
+                    if(this->vehicles.GetVehicle(v->GetIdNumber()).GetSteps() == 1) {
                         //posledni krok pred zastavkou
                         position = GetAbsolutePosition(
-                                    streets.GetStreet(simulation_data.vehicles.GetVehicle(v->GetIdNumber()).TellStop()).getEnd(),
-                                    streets.GetStreet(simulation_data.vehicles.GetVehicle(v->GetIdNumber()).TellStop()).getBegin(),
-                                    streets.GetStreet(simulation_data.vehicles.GetVehicle(v->GetIdNumber()).TellStop()).getStopPos()
+                                    streets.GetStreet(this->vehicles.GetVehicle(v->GetIdNumber()).TellStop()).getEnd(),
+                                    streets.GetStreet(this->vehicles.GetVehicle(v->GetIdNumber()).TellStop()).getBegin(),
+                                    streets.GetStreet(this->vehicles.GetVehicle(v->GetIdNumber()).TellStop()).getStopPos()
                                     );
-                        MoveVehicle(simulation_data.vehicles.GetVehicle(v->GetIdNumber()), position);
+                        MoveVehicle(this->vehicles.GetVehicle(v->GetIdNumber()), position);
                     }
                     else {
-                        Step(simulation_data.vehicles.GetVehicle(v->GetIdNumber()));
+                        Step(this->vehicles.GetVehicle(v->GetIdNumber()));
                     }
                 }
             }
         }
 
-        sleep(simulation_data.sleeptime);
+        sleep(sleeptime);
         time = time.addSecs(60);
     }
 
 
 
 }
-
 
 /**
  * @brief InitializeSimulation
@@ -100,13 +96,13 @@ void Simulate(int seconds) {
  * @param start_hours
  * @param start_minutes
  */
-void InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines, int start_hours, int start_minutes) {
+void Simulation::InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines, int start_hours, int start_minutes) {
 
-    InitializeStreets(&(simulation_data.streets), parsed_streets);
+    InitializeStreets(&(streets), parsed_streets);
 
-    InitializeLines(&(simulation_data.lines), parsed_lines);
+    InitializeLines(&(lines), parsed_lines);
 
-    InitializeVehicleEventTable(simulation_data.lines, simulation_data.event_table);
+    InitializeVehicleEventTable(lines, event_table);
 
-    InitializeTime(&(simulation_data.time), start_hours, start_minutes);
+    InitializeTime(&(time), start_hours, start_minutes);
 }
