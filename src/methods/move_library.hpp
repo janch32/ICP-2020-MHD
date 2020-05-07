@@ -6,7 +6,7 @@
 #include "../model/streets.hpp"
 
 
-bool Step(Vehicle vehicle);
+void Step(Vehicle vehicle);
 
 void MoveVehicle(Vehicle vehicle, QPoint position);
 

@@ -41,6 +41,9 @@ class Vehicle {
         //void CalculateStep();
         void SetStep(float step);
         float GetStep();
+        void SetSteps(int steps);
+        int GetSteps();
+        void DecrementSteps();
         void Step();
         QPoint GetDirection();
 

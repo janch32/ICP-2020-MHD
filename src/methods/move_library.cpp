@@ -1,6 +1,7 @@
 #include "move_library.hpp"
 
-bool Step(Vehicle vehicle) {
+void Step(Vehicle vehicle) {
+
     float step = vehicle.GetStep();
     Street street = *(vehicle.journey[vehicle.journey_no]);
     float lenght = GetLenght(vehicle.GetDirection(), vehicle.GetPosition());
@@ -16,34 +17,37 @@ bool Step(Vehicle vehicle) {
         //pricitame k souradnici x
         dest.setX( vp.x() + ( (vd.x() - vp.x()) * percentualy ) );
         if(dest.x() > vd.x()) {overflow = true;}
-        if (vd.y() > vp.y()) {
-            //pricitame k souradnici y
-            dest.setY( vp.y() + ( (vd.y() - vp.y()) * percentualy) );
-        }
-        else{//odcitame od souradnice y
-            dest.setY( vp.y() - ( (vp.y() - vd.y()) * percentualy) );
+        else {
+            if (vd.y() > vp.y()) {
+                //pricitame k souradnici y
+                dest.setY( vp.y() + ( (vd.y() - vp.y()) * percentualy) );
+            }
+            else{//odcitame od souradnice y
+                dest.setY( vp.y() - ( (vp.y() - vd.y()) * percentualy) );
+            }
         }
     }
     else {
         //odcitame od souradice x
         dest.setX(vp.x() - ( (vp.x() - vd.x()) * percentualy ));
         if(dest.x() < vd.x()) {overflow = true;}
-        if (vd.y() > vp.y()) {
-            //pricitame k souradnici y
-            dest.setY( vp.y() + ( (vd.y() - vp.y()) * percentualy) );
-        }
-        else{//odcitame od souradnice y
-            dest.setY( vp.y() - ( (vp.y() - vd.y()) * percentualy) );
+        else {
+            if (vd.y() > vp.y()) {
+                //pricitame k souradnici y
+                dest.setY( vp.y() + ( (vd.y() - vp.y()) * percentualy) );
+            }
+            else{//odcitame od souradnice y
+                dest.setY( vp.y() - ( (vp.y() - vd.y()) * percentualy) );
+            }
         }
     }
 
     if(overflow) {
-        MoveVehicle(vehicle, vd);
-        return overflow;
+        //TODO: move za roh
     }
     else {
         MoveVehicle(vehicle, dest);
-        return false;
+        vehicle.DecrementSteps();
     }
 }
 
@@ -82,6 +86,8 @@ float ComputeStep(Vehicle vehicle, Streets streets, QTime time) {
     }
 
     step = length / (time.secsTo(dest_time) / 60);
+
+    vehicle.SetSteps(length/step);
 
     return step;
 }

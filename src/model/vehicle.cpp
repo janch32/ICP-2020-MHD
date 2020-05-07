@@ -92,3 +92,15 @@ float Vehicle::GetStep() {
 QPoint Vehicle::GetDirection() {
     return direction;
 }
+
+void Vehicle::SetSteps(int steps) {
+    this->steps = steps;
+}
+
+int Vehicle::GetSteps() {
+    return steps;
+}
+
+void Vehicle::DecrementSteps() {
+    steps--;
+}

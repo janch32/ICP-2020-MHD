@@ -7,6 +7,7 @@
 void Simulate(int seconds) {
     VehicleEventTable ve_table = simulation_data.event_table;
     Lines lines = simulation_data.lines;
+    Streets streets = simulation_data.streets;
     QTime time = simulation_data.time;
     QTime final_time = simulation_data.time.addSecs(seconds);
     int vehicle_count = 0;
@@ -67,7 +68,18 @@ void Simulate(int seconds) {
                     v->SetStep(ComputeStep(simulation_data.vehicles.GetVehicle(v->GetIdNumber()), simulation_data.streets, time));
                 }
                 else{
-                    Step(simulation_data.vehicles.GetVehicle(v->GetIdNumber()));
+                    if(simulation_data.vehicles.GetVehicle(v->GetIdNumber()).GetSteps() == 1) {
+                        //posledni krok pred zastavkou
+                        position = GetAbsolutePosition(
+                                    streets.GetStreet(simulation_data.vehicles.GetVehicle(v->GetIdNumber()).TellStop()).getEnd(),
+                                    streets.GetStreet(simulation_data.vehicles.GetVehicle(v->GetIdNumber()).TellStop()).getBegin(),
+                                    streets.GetStreet(simulation_data.vehicles.GetVehicle(v->GetIdNumber()).TellStop()).getStopPos()
+                                    );
+                        MoveVehicle(simulation_data.vehicles.GetVehicle(v->GetIdNumber()), position);
+                    }
+                    else {
+                        Step(simulation_data.vehicles.GetVehicle(v->GetIdNumber()));
+                    }
                 }
             }
         }
