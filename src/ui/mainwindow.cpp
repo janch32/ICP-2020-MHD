@@ -17,8 +17,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionClose, SIGNAL(triggered()), this, SLOT(closeApp()));
     connect(ui->actionOpenSim, SIGNAL(triggered()), this, SLOT(selectSimulationFolder()));
-    //connect(ui->map, &Map::streetSelected, this, &MainWindow::selectStreet);
-    //connect(ui->streetFlow, SIGNAL(valueChanged(int)), ui->map, SLOT(changeStreetTraffic(int)));
     selectSimulationFolder();
 }
 
@@ -74,6 +72,12 @@ void MainWindow::selectSimulationFolder()
 
     mapScene = new Map(streets);
     ui->mapView->setScene(mapScene);
+
+    connect(mapScene, &Map::streetSelected, this, &MainWindow::selectStreet);
+    connect(ui->streetFlow, SIGNAL(valueChanged(int)), mapScene, SLOT(changeStreetTraffic(int)));
+
+    // Ukázka přidání busu
+    mapScene->addBus(1, "42");
 }
 
 void MainWindow::selectStreet(Street *street)
@@ -86,6 +90,13 @@ void MainWindow::selectStreet(Street *street)
         ui->streetParams->setEnabled(true);
         ui->streetName->setText(street->getName());
         ui->streetFlow->setValue(street->getTrafficFlow()*100);
+    }
+
+    // Ukázka busu, kdžy se vybere ulice, změní pozici, jinka je odstraněn
+    if(street == nullptr){
+        mapScene->removeBus(1);
+    }else{
+        mapScene->updateBus(1, QPoint(10, 10));
     }
 }
 

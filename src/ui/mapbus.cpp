@@ -1,7 +1,7 @@
 #include "mapbus.hpp"
 
 const QBrush MapBus::defaultBrush = QBrush(QColor(0, 0, 0));
-const QBrush MapBus::selectedBrush = QBrush(QColor(0, 0, 255));
+const QBrush MapBus::selectedBrush = QBrush(QColor(255, 0, 0));
 
 MapBus::MapBus(int id, QString line, QGraphicsItem *parent)
 {
@@ -9,7 +9,8 @@ MapBus::MapBus(int id, QString line, QGraphicsItem *parent)
     selected = false;
 
     QFont font;
-    font.setPixelSize(10);
+    font.setPixelSize(15);
+    font.setWeight(QFont::Bold);
 
     QFontMetrics fontMetrics(font);
     auto fontWidth = fontMetrics.width(line);

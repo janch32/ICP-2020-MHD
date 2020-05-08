@@ -12,12 +12,12 @@ class Map : public QGraphicsScene
     Q_OBJECT
 
 public:
-    explicit Map(StreetList streets, QWidget *parent = nullptr);
+    explicit Map(StreetList streets, QObject *parent = nullptr);
     ~Map();
 
 public slots:
     void changeStreetTraffic(int flow);
-    void updateBus(QPoint pos);
+    void updateBus(int id, QPoint pos);
     void addBus(int id, QString line);
     void removeBus(int id);
 signals:
