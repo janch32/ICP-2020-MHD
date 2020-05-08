@@ -1,3 +1,5 @@
+#include <QtDebug>
+
 #include "simulation.hpp"
 
 /**
@@ -16,6 +18,7 @@ void Simulation::Simulate(int seconds) {
     TimetableEntry entry;
 
     QPoint position;
+    Vehicle vehicle;
     QList<Vehicle> vehicles;
     QList<Vehicle>::iterator v;
 
@@ -26,10 +29,11 @@ void Simulation::Simulate(int seconds) {
 
         curr_events = ve_table.GetEventsFromTime(time);
 
+        //Search for spawn Events
         for( i = curr_events.begin(); i != curr_events.end(); ++i) {
 
-            switch (i->action.GetType()) {
-                case Spawn:
+            if (i->action.GetType() == Spawn) {
+
                     position = GetAbsolutePosition(
                                 lines.GetLine(i->line).getRoute().first()->getEnd(),
                                 lines.GetLine(i->line).getRoute().first()->getBegin(),
@@ -43,29 +47,50 @@ void Simulation::Simulate(int seconds) {
                         }
                     }
 
-                    this->vehicles.AddVehicle(SpawnVehicle(lines.GetLine(i->line), vehicle_count, position, lines.GetLine(i->line).getRoute(), entry));
+                    vehicle = SpawnVehicle(lines.GetLine(i->line), vehicle_count, position, lines.GetLine(i->line).getRoute(), entry);
+                    this->vehicles.AddVehicle(vehicle);
                     vehicle_count++;
-                    break;
+                    if (this->vehicles.GetVehicle(vehicle.GetIdNumber()).TellStop() == "ghost_street") {
+                        this->vehicles.GetVehicle(vehicle.GetIdNumber()).CommenceRide(time);
+                        this->vehicles.GetVehicle(vehicle.GetIdNumber()).SetStep(ComputeStep(this->vehicles.GetVehicle(v->GetIdNumber()), streets, time));
+                    }
 
+            }
+         }
+
+        /*Toto je odlozeno na neurcito
+        curr_events = this->move_event_table.GetEventsFromTime(time);
+
+        for( i = curr_events.begin(); i != curr_events.end(); ++i) {
+
+            switch (i->action.GetType()) {
                 case Move:
+                    vehicle = this->vehicles.GetVehicle(i->number);
+                    if(vehicle.GetSteps() == 1) {
+                        //posledni krok pred zastavkou
+                        position = GetAbsolutePosition(
+                                    streets.GetStreet(vehicle.TellStop()).getEnd(),
+                                    streets.GetStreet(vehicle.TellStop()).getBegin(),
+                                    streets.GetStreet(vehicle.TellStop()).getStopPos()
+                                    );
+                        MoveVehicle(this->vehicles.GetVehicle(i->number), position);
+                    }
+                    else {
+                        Step(this->vehicles.GetVehicle(i-));
+                    }
 
-                    break;
+                break;
 
                 case End:
-                    break;
+                break;
 
                 default:
-                    break;
+                break;
             }
-
+          */
             vehicles = this->vehicles.GetAllVehicles();
             for( v = vehicles.begin(); v != vehicles.end(); ++v) {
-                if (v->TellStop() == "ghost_street") {
-                    v->CommenceRide(time);
-                    v->SetStep(ComputeStep(this->vehicles.GetVehicle(v->GetIdNumber()), streets, time));
-                }
-                else{
-                    if(this->vehicles.GetVehicle(v->GetIdNumber()).GetSteps() == 1) {
+                if(this->vehicles.GetVehicle(v->GetIdNumber()).GetSteps() == 1) {
                         //posledni krok pred zastavkou
                         position = GetAbsolutePosition(
                                     streets.GetStreet(this->vehicles.GetVehicle(v->GetIdNumber()).TellStop()).getEnd(),
@@ -77,17 +102,14 @@ void Simulation::Simulate(int seconds) {
                     else {
                         Step(this->vehicles.GetVehicle(v->GetIdNumber()));
                     }
-                }
+                qDebug() << "Vehicle: " << v->GetIdNumber() << " Position: X=" << v->GetPosition().x() << " Y=" << v->GetPosition().y();
             }
         }
 
         sleep(sleeptime);
         time = time.addSecs(60);
-    }
-
-
-
 }
+
 
 /**
  * @brief InitializeSimulation
@@ -99,9 +121,18 @@ void Simulation::Simulate(int seconds) {
 void Simulation::InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines, int start_hours, int start_minutes) {
 
     InitializeStreets(&(streets), parsed_streets);
-
+/*DEBUG
+    foreach (Street s, streets.GetAllStreets()) {
+        qDebug() << s.getID();
+    }
+*/
     InitializeLines(&(lines), parsed_lines);
-
+/*DEBUG
+    QList<Line> list = lines.GetAllLines();
+    foreach (Line l, list) {
+        qDebug() << l.getID();
+    }
+*/
     InitializeVehicleEventTable(lines, event_table);
 
     InitializeTime(&(time), start_hours, start_minutes);

@@ -1,5 +1,5 @@
 #include "map.hpp"
-#include "ui_map.h"
+//#include "ui_map.h"
 #include "mapstreet.hpp"
 
 #include <QtDebug>

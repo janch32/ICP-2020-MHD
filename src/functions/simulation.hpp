@@ -17,6 +17,7 @@ private:
     Streets streets;
     Lines lines;
     VehicleEventTable event_table;
+    EventTable move_event_table;
     QTime time;
     int sleeptime;
     Vehicles vehicles;

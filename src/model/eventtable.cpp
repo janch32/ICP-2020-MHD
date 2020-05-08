@@ -19,6 +19,11 @@ Event::Event(QString line, Action action){
     this->action = action;
 }
 
+Event::Event(int number, Action action){
+    this->number = number;
+    this->action = action;
+}
+
 EventTable::EventTable(){}
 
 QList<Event> EventTable::GetEventsFromTime(QTime time) {

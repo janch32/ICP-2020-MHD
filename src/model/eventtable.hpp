@@ -22,7 +22,9 @@ private:
 class Event {
 public:
     Event(QString line, Action action);
+    Event(int number, Action action);
     QString line;
+    int number;
     Action action;
 };
 
@@ -42,5 +44,7 @@ private:
 public:
     void InitializeTable(QHash<QString, QTime> line_spawn);
 };
+
+
 
 #endif // EVENTTABLE_H

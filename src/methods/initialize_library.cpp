@@ -1,3 +1,5 @@
+#include <QtDebug>
+
 #include "initialize_library.hpp"
 
 
@@ -25,7 +27,10 @@ void InitializeVehicleEventTable(Lines lines, VehicleEventTable vehicle_table) {
     Timetable t_table;
 
     for( i = lines_list.begin(); i != lines_list.end(); ++i) {
+        //DEBUG
+        //qDebug() << i->getID();
         t_table = i->getTimetable();
+
         line_spawn.insert(i->getID(),t_table.getEntries().first().getStartTime());
     }
 

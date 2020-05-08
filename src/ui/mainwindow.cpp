@@ -9,6 +9,8 @@
 #include "../parser/parselines.hpp"
 #include "../parser/parsetimetables.hpp"
 
+#include "../functions/simulation.hpp"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -20,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->map, &Map::streetSelected, this, &MainWindow::selectStreet);
     connect(ui->streetFlow, SIGNAL(valueChanged(int)), ui->map, SLOT(changeStreetTraffic(int)));
     selectSimulationFolder();
+
+
 }
 
 MainWindow::~MainWindow()
@@ -73,6 +77,15 @@ void MainWindow::selectSimulationFolder()
     }
 
     ui->map->setStreets(streets);
+
+    /**
+      * Toto je pro debugovaci ucely, pak si to udelej jinak
+      */
+    Simulation simulation;
+    simulation.InitializeSimulation(streets,lines, 15, 30);
+    simulation.Simulate(3000);
+
+
 }
 
 void MainWindow::selectStreet(Street *street)
