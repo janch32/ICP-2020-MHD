@@ -17,6 +17,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionClose, SIGNAL(triggered()), this, SLOT(closeApp()));
     connect(ui->actionOpenSim, SIGNAL(triggered()), this, SLOT(selectSimulationFolder()));
+
+    connect(ui->timer, SIGNAL(tick(int)), this, SLOT(simulationStep(int)));
+    connect(ui->timer, SIGNAL(reset(QTime)), this, SLOT(simulationReset(QTime)));
+
     selectSimulationFolder();
 }
 
@@ -98,6 +102,16 @@ void MainWindow::selectStreet(Street *street)
     }else{
         mapScene->updateBus(1, QPoint(10, 10));
     }
+}
+
+void MainWindow::simulationStep(int seconds)
+{
+    qDebug() << "Simulation fired!" << seconds;
+}
+
+void MainWindow::simulationReset(QTime time)
+{
+    qDebug() << "Simulation time set:" << time;
 }
 
 void MainWindow::closeApp()

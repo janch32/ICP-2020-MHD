@@ -3,6 +3,7 @@
 
 #include "../model/street.hpp"
 #include <QMainWindow>
+#include <QTime>
 #include "map.hpp"
 
 namespace Ui {
@@ -21,6 +22,8 @@ public slots:
     void closeApp();
     void selectSimulationFolder();
     void selectStreet(Street *street);
+    void simulationStep(int seconds);
+    void simulationReset(QTime time);
 
 private:
     Ui::MainWindow *ui;
