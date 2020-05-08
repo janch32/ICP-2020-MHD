@@ -34,7 +34,7 @@ Street *TimetableEntry::getCurrStop(QTime time)
 Street *TimetableEntry::getNextStop(QTime time)
 {
     for(int i = 0; i < cells.count(); i++){
-        if(cells[i].time < time) continue;
+        if(cells[i].time <= time && i != cells.count() - 1) continue;
         return cells[i].street;
     }
 
@@ -44,7 +44,7 @@ Street *TimetableEntry::getNextStop(QTime time)
 QTime TimetableEntry::getNextStopTime(QTime time)
 {
     for(int i = 0; i < cells.count(); i++){
-        if(cells[i].time < time) continue;
+        if(cells[i].time <= time) continue;
         return cells[i].time;
     }
 

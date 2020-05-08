@@ -80,11 +80,11 @@ void MainWindow::selectSimulationFolder()
 
     /**
       * Toto je pro debugovaci ucely, pak si to udelej jinak
-
+*/
     Simulation simulation;
     simulation.InitializeSimulation(streets,lines, 15, 30);
     simulation.Simulate(3000);
-*/
+
 
     mapScene = new Map(streets);
     ui->mapView->setScene(mapScene);

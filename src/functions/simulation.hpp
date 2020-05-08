@@ -16,12 +16,13 @@ class Simulation{
 private:
     Streets streets;
     Lines lines;
-    VehicleEventTable event_table;
     EventTable move_event_table;
     QTime time;
     int sleeptime;
     Vehicles vehicles;
 public:
+    QHash<int, QPoint> move_log;
+    VehicleEventTable event_table;
     void Simulate(int seconds);
     void InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines, int start_hours, int start_minutes);
 };

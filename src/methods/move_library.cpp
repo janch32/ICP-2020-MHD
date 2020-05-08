@@ -1,9 +1,46 @@
 #include "move_library.hpp"
 
+bool GetDestination(QPoint *dest, QPoint vd, QPoint vp, float percentualy) {
+    bool overflow = false;
+    if(vd.x() > vp.x()) {
+        //pricitame k souradnici x
+        dest->setX( vp.x() + ( (vd.x() - vp.x()) * (percentualy/100) ) );
+        if(dest->x() > vd.x()) {overflow = true;}
+        else {
+            if (vd.y() > vp.y()) {
+                //pricitame k souradnici y
+                dest->setY( vp.y() + ( (vd.y() - vp.y()) * (percentualy/100)) );
+                if(dest->y() > vd.y()) {overflow = true;}
+            }
+            else{//odcitame od souradnice y
+                dest->setY( vp.y() - ( (vp.y() - vd.y()) * (percentualy/100)) );
+                if(dest->y() < vd.y()) {overflow = true;}
+            }
+        }
+    }
+    else {
+        //odcitame od souradice x
+        dest->setX(vp.x() - ( (vp.x() - vd.x()) * (percentualy/100) ));
+        if(dest->x() < vd.x()) {overflow = true;}
+        else {
+            if (vd.y() > vp.y()) {
+                //pricitame k souradnici y
+                dest->setY( vp.y() + ( (vd.y() - vp.y()) * (percentualy/100)) );
+                if(dest->y() > vd.y()) {overflow = true;}
+            }
+            else{//odcitame od souradnice y
+                dest->setY( vp.y() - ( (vp.y() - vd.y()) * (percentualy/100)) );
+                if(dest->y() < vd.y()) {overflow = true;}
+            }
+        }
+    }
+    return overflow;
+
+}
+
 void Step(Vehicle *vehicle) {
 
     float step = vehicle->GetStep();
-    Street street = *(vehicle->journey[vehicle->journey_no]);
     float lenght = GetLenght(vehicle->GetDirection(), vehicle->GetPosition());
 
     float percentualy = step / (lenght/100);
@@ -11,8 +48,10 @@ void Step(Vehicle *vehicle) {
     QPoint vd = vehicle->GetDirection();
     QPoint vp = vehicle->GetPosition();
 
-    bool overflow = false;
+    bool overflow;
 
+    overflow = GetDestination(&dest, vd, vp, percentualy);
+/*
     if(vd.x() > vp.x()) {
         //pricitame k souradnici x
         dest.setX( vp.x() + ( (vd.x() - vp.x()) * (percentualy/100) ) );
@@ -21,9 +60,11 @@ void Step(Vehicle *vehicle) {
             if (vd.y() > vp.y()) {
                 //pricitame k souradnici y
                 dest.setY( vp.y() + ( (vd.y() - vp.y()) * (percentualy/100)) );
+                if(dest.y() > vd.y()) {overflow = true;}
             }
             else{//odcitame od souradnice y
                 dest.setY( vp.y() - ( (vp.y() - vd.y()) * (percentualy/100)) );
+                if(dest.y() < vd.y()) {overflow = true;}
             }
         }
     }
@@ -35,20 +76,62 @@ void Step(Vehicle *vehicle) {
             if (vd.y() > vp.y()) {
                 //pricitame k souradnici y
                 dest.setY( vp.y() + ( (vd.y() - vp.y()) * (percentualy/100)) );
+                if(dest.y() > vd.y()) {overflow = true;}
             }
             else{//odcitame od souradnice y
                 dest.setY( vp.y() - ( (vp.y() - vd.y()) * (percentualy/100)) );
+                if(dest.y() < vd.y()) {overflow = true;}
             }
         }
     }
-
+*/
     if(overflow) {
         //TODO: move za roh
+        float part_step = step - GetLenght(vd, vp);
+        vehicle->TurnOnStreet();
+        vp = vd;
+        vd = vehicle->GetDirection();
+        Street street = *(vehicle->journey[vehicle->journey_no]);
+
+        lenght = GetLenght(vehicle->GetDirection(), vehicle->GetPosition());
+
+        percentualy = part_step / (lenght/100);
+
+        GetDestination(&dest, vd, vp, percentualy);
+/*
+        if(vd.x() > vp.x()) {
+            //pricitame k souradnici x
+            dest.setX( vp.x() + ( (vd.x() - vp.x()) * (percentualy/100) ) );
+                if (vd.y() > vp.y()) {
+                    //pricitame k souradnici y
+                    dest.setY( vp.y() + ( (vd.y() - vp.y()) * (percentualy/100)) );
+                    if(dest.y() > vd.y()) {overflow = true;}
+                }
+                else{//odcitame od souradnice y
+                    dest.setY( vp.y() - ( (vp.y() - vd.y()) * (percentualy/100)) );
+                    if(dest.y() < vd.y()) {overflow = true;}
+                }
+        }
+        else {
+            //odcitame od souradice x
+            dest.setX(vp.x() - ( (vp.x() - vd.x()) * (percentualy/100) ));
+                if (vd.y() > vp.y()) {
+                    //pricitame k souradnici y
+                    dest.setY( vp.y() + ( (vd.y() - vp.y()) * (percentualy/100)) );
+                    if(dest.y() > vd.y()) {overflow = true;}
+                }
+                else{//odcitame od souradnice y
+                    dest.setY( vp.y() - ( (vp.y() - vd.y()) * (percentualy/100)) );
+                    if(dest.y() < vd.y()) {overflow = true;}
+                }
+        }
+        */
+        MoveVehicle(vehicle,dest);
     }
     else {
-        MoveVehicle(vehicle, dest);
-        vehicle->DecrementSteps();
+        MoveVehicle(vehicle, dest);      
     }
+    vehicle->DecrementSteps();
 }
 
 /**
@@ -74,15 +157,23 @@ float ComputeStep(Vehicle *vehicle, Streets streets, QTime time) {
     while (s.getID() != next_stop.getID()) {
         length += GetLenght(s.getEnd(), s.getBegin());
         no++;
+        s = *(vehicle->journey[no]);
     }
 
     Street last_street = *(vehicle->journey[no - 1]);
-    if (last_street.getEnd() == s.getBegin() ||
-        last_street.getBegin() == s.getBegin()) {
+    if ((
+                (last_street.getEnd().x() == s.getBegin().x()) &&
+                (last_street.getEnd().y() == s.getBegin().y())
+         )
+            ||
+        (
+                (last_street.getBegin().x() == s.getBegin().x()) &&
+                (last_street.getBegin().y() == s.getBegin().y())
+        )) {
         length += GetLenght(GetAbsolutePosition(s.getEnd(), s.getBegin(), s.getStopPos()), s.getBegin());
     }
     else { //pokud nesouhlasi -> souhlasi s koncem
-        length += GetLenght(position, s.getEnd());
+        length += GetLenght(GetAbsolutePosition(s.getEnd(), s.getBegin(), s.getStopPos()), s.getEnd());
     }
 
     step = length / (time.secsTo(dest_time) / 60);
@@ -111,8 +202,8 @@ void MoveVehicle(Vehicle *vehicle, QPoint position) {
 QPoint GetAbsolutePosition(QPoint A, QPoint B, float percent) {
     QPoint ret;
 
-    ret.setX(( ( A.x() - B.x() ) * (percent/100) ) + B.x());
-    ret.setY(( ( A.y() - B.y() ) * (percent/100) ) + B.y());
+    ret.setX(( ( A.x() - B.x() ) * (percent) ) + B.x());
+    ret.setY(( ( A.y() - B.y() ) * (percent) ) + B.y());
 
     return ret;
 }

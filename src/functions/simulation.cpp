@@ -26,6 +26,47 @@ void Simulation::Simulate(int seconds) {
     qDebug() << time.toString() << " " << final_time.toString();
 
     while(this->time < final_time) {
+        curr_events = this->event_table.GetEventsFromTime(time);
+        vehicles = this->vehicles.GetAllVehicles();
+        //Search for End Events
+        for( i = curr_events.begin(); i != curr_events.end(); ++i) {
+            if (i->action.GetType() == End) {
+                for( v = vehicles.begin(); v != vehicles.end(); ++v) {
+                    if(v->GetIdNumber() == i->number) {
+                        this->vehicles.vehicles.remove(v->GetIdNumber());
+                    }
+                }
+            }
+        }
+
+        vehicles = this->vehicles.GetAllVehicles();
+        for( v = vehicles.begin(); v != vehicles.end(); ++v) {
+            if(this->vehicles.GetVehicle(v->GetIdNumber()).GetSteps() == 1) {
+                    //posledni krok pred zastavkou
+                    position = GetAbsolutePosition(
+                                streets.GetStreet(this->vehicles.GetVehicle(v->GetIdNumber()).TellNextStop()).getEnd(),
+                                streets.GetStreet(this->vehicles.GetVehicle(v->GetIdNumber()).TellNextStop()).getBegin(),
+                                streets.GetStreet(this->vehicles.GetVehicle(v->GetIdNumber()).TellNextStop()).getStopPos()
+                                );
+                    MoveVehicle(&(*this->vehicles.vehicles.find(v->GetIdNumber())), position);
+                    //MOVELOG
+                    move_log.insert(v->GetIdNumber(),position);
+                    this->vehicles.vehicles.find(v->GetIdNumber())->ArriveOnStop(time);
+                    qDebug() << "Stop: " << this->vehicles.vehicles.find(v->GetIdNumber())->TellStop();
+                    if(this->vehicles.vehicles.find(v->GetIdNumber())->journey_no == this->vehicles.vehicles.find(v->GetIdNumber())->journey.count() - 1) {
+                        QTime ti = time.addSecs(60);
+                        event_table.InsertEvent(ti,Event(v->GetIdNumber(), End));
+                    }
+                    else{
+                        this->vehicles.vehicles.find(v->GetIdNumber())->SetStep(ComputeStep(&(*this->vehicles.vehicles.find(v->GetIdNumber())), streets, time));
+                    }
+                }
+                else {
+                    Step(&(*this->vehicles.vehicles.find(v->GetIdNumber())));
+                    //MOVELOG
+                    move_log.insert(v->GetIdNumber(),this->vehicles.vehicles.find(v->GetIdNumber())->GetPosition());
+                }
+        }
 
         curr_events = ve_table.GetEventsFromTime(time);
 
@@ -54,9 +95,15 @@ void Simulation::Simulate(int seconds) {
                         this->vehicles.vehicles.find(vehicle.GetIdNumber())->CommenceRide(time);
                         this->vehicles.vehicles.find(vehicle.GetIdNumber())->SetStep(ComputeStep(&(*this->vehicles.vehicles.find(vehicle.GetIdNumber())), streets, time));
                     }
+                    //MOVELOG
+                    move_log.insert(vehicle.GetIdNumber(),position);
             }
          }
-
+        //DEBUG
+        vehicles = this->vehicles.GetAllVehicles();
+        for (v = vehicles.begin(); v != vehicles.end(); ++v){
+            qDebug() << "Vehicle: " << v->GetIdNumber() << " Position: X=" << v->GetPosition().x() << " Y=" << v->GetPosition().y();
+        }
         /*Toto je odlozeno na neurcito
         curr_events = this->move_event_table.GetEventsFromTime(time);
 
@@ -87,22 +134,7 @@ void Simulation::Simulate(int seconds) {
                 break;
             }
           */
-            vehicles = this->vehicles.GetAllVehicles();
-            for( v = vehicles.begin(); v != vehicles.end(); ++v) {
-                if(this->vehicles.GetVehicle(v->GetIdNumber()).GetSteps() == 1) {
-                        //posledni krok pred zastavkou
-                        position = GetAbsolutePosition(
-                                    streets.GetStreet(this->vehicles.GetVehicle(v->GetIdNumber()).TellNextStop()).getEnd(),
-                                    streets.GetStreet(this->vehicles.GetVehicle(v->GetIdNumber()).TellNextStop()).getBegin(),
-                                    streets.GetStreet(this->vehicles.GetVehicle(v->GetIdNumber()).TellNextStop()).getStopPos()
-                                    );
-                        MoveVehicle(&(*this->vehicles.vehicles.find(v->GetIdNumber())), position);
-                    }
-                    else {
-                        Step(&(*this->vehicles.vehicles.find(v->GetIdNumber())));
-                    }
-                qDebug() << "Vehicle: " << v->GetIdNumber() << " Position: X=" << v->GetPosition().x() << " Y=" << v->GetPosition().y();
-            }
+
          //sleep(sleeptime);
          this->time = this->time.addSecs(60);
         }
