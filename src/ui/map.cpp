@@ -1,5 +1,5 @@
 #include "map.hpp"
-//#include "ui_map.h"
+
 #include "mapstreet.hpp"
 
 #include <QtDebug>
@@ -26,19 +26,34 @@ void Map::changeStreetTraffic(int flow)
     invalidate();
 }
 
-void Map::updateBus(QPoint pos)
+void Map::updateBus(int id, QPoint pos)
 {
-
+    for(auto i : items()){
+        if(MapBus *b = dynamic_cast<MapBus *>(i)){
+            if(b->getId() != id) continue;
+            b->setPos(pos);
+            invalidate();
+            return;
+        }
+    }
 }
 
 void Map::addBus(int id, QString line)
 {
-
+    addItem(new MapBus(id, line));
+    invalidate();
 }
 
 void Map::removeBus(int id)
 {
-
+    for(auto i : items()){
+        if(MapBus *b = dynamic_cast<MapBus *>(i)){
+            if(b->getId() != id) continue;
+            removeItem(b);
+            invalidate();
+            return;
+        }
+    }
 }
 
 void Map::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
@@ -66,9 +81,10 @@ void Map::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if(selectedMapBus != nullptr){
         selectedMapBus->setSelected(true);
         emit busSelected(selectedMapBus->getId());
+    }else{
+        emit busSelected(-1);
     }
 
     invalidate();
-    //if(selectedMapStreet != nullptr) selectedMapStreet->setSelected(false);
     QGraphicsScene::mousePressEvent(mouseEvent);
 }

@@ -27,7 +27,8 @@ SOURCES += main.cpp \
     model/vehicles.cpp \
     model/streets.cpp \
     model/lines.cpp \
-    ui/mapview.cpp
+    ui/mapview.cpp \
+    ui/timer.cpp
 
 
 HEADERS += \
@@ -51,8 +52,10 @@ HEADERS += \
     model/vehicles.hpp \
     model/streets.hpp \
     model/lines.hpp \
-    ui/mapview.hpp
+    ui/mapview.hpp \
+    ui/timer.hpp
 
 
 FORMS += \
-    ui/mainwindow.ui
+    ui/mainwindow.ui \
+    ui/timer.ui

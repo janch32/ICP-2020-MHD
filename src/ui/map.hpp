@@ -17,7 +17,7 @@ public:
 
 public slots:
     void changeStreetTraffic(int flow);
-    void updateBus(QPoint pos);
+    void updateBus(int id, QPoint pos);
     void addBus(int id, QString line);
     void removeBus(int id);
 signals:
