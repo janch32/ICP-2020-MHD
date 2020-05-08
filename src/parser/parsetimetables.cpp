@@ -27,20 +27,19 @@ QPair<QString, TimetableEntry> ParseTimetables::getEntry(QHash<QString, LineRout
     return res;
 }
 
-QHash<QString, Timetable> ParseTimetables::getTimetables(QHash<QString, LineRoute> routes)
+QHash<QString, Timetable *> ParseTimetables::getTimetables(QHash<QString, LineRoute> routes)
 {
-    QHash<QString, Timetable> timetable;
+    QHash<QString, Timetable *> timetable;
 
     while(!endOfFile()){
         auto entry = getEntry(&routes);
         if(entry.first.isEmpty()) continue;
 
         if(!timetable.contains(entry.first)){
-            Timetable t;
-            timetable.insert(entry.first, t);
+            timetable.insert(entry.first, new Timetable());
         }
 
-        timetable.value(entry.first).getEntries().append(entry.second);
+        timetable.value(entry.first)->getEntries()->append(entry.second);
     }
 
     return timetable;

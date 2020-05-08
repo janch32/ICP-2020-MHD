@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionClose, SIGNAL(triggered()), this, SLOT(closeApp()));
     connect(ui->actionOpenSim, SIGNAL(triggered()), this, SLOT(selectSimulationFolder()));
-    connect(ui->map, &Map::streetSelected, this, &MainWindow::selectStreet);
-    connect(ui->streetFlow, SIGNAL(valueChanged(int)), ui->map, SLOT(changeStreetTraffic(int)));
+    //connect(ui->map, &Map::streetSelected, this, &MainWindow::selectStreet);
+    //connect(ui->streetFlow, SIGNAL(valueChanged(int)), ui->map, SLOT(changeStreetTraffic(int)));
     selectSimulationFolder();
 }
 
@@ -72,7 +72,8 @@ void MainWindow::selectSimulationFolder()
         qDebug() << l.getID() << " " << l.getDisplayNumber() << " " << l.getDestination() << " " << l.getRoute();
     }
 
-    ui->map->setStreets(streets);
+    mapScene = new Map(streets);
+    ui->mapView->setScene(mapScene);
 }
 
 void MainWindow::selectStreet(Street *street)

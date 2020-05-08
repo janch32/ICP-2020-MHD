@@ -1,17 +1,16 @@
-#ifndef MAPSTREET_HPP
-#define MAPSTREET_HPP
+#ifndef MAPBUS_HPP
+#define MAPBUS_HPP
 
 #include <QGraphicsObject>
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
-#include "../model/street.hpp"
 
-class MapStreet : public QGraphicsObject
+class MapBus : public QGraphicsObject
 {
     Q_OBJECT
 public:
-    explicit MapStreet(Street *street, QGraphicsItem *parent = 0);
+    explicit MapBus(int id, QString line, QGraphicsItem *parent = 0);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0) override;
     QRectF boundingRect() const override;
     QPainterPath shape() const override;
@@ -19,17 +18,15 @@ public:
     bool getSelected() const;
     void setSelected(bool value);
 
-    Street *getStreet();
+    int getId() const;
 
 private:
     QPainterPath paintPath;
-    QPainterPath namePath;
-    Street *street;
+    int id;
     bool selected;
 
-    static const QBrush highlightBrush;
-    static const QBrush blackBrush;
-    static const QBrush whiteBrush;
+    static const QBrush defaultBrush;
+    static const QBrush selectedBrush;
 };
 
-#endif // MAPSTREET_HPP
+#endif // MAPBUS_HPP

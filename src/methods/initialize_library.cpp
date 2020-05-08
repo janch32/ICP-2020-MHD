@@ -26,7 +26,7 @@ void InitializeVehicleEventTable(Lines lines, VehicleEventTable vehicle_table) {
 
     for( i = lines_list.begin(); i != lines_list.end(); ++i) {
         t_table = i->getTimetable();
-        line_spawn.insert(i->getID(),t_table.getEntries().first().getStartTime());
+        line_spawn.insert(i->getID(),t_table.getEntries()->first().getStartTime());
     }
 
     vehicle_table.InitializeTable(line_spawn);

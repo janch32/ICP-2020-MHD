@@ -1,42 +1,35 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
-#include <QGraphicsView>
+#include <QWheelEvent>
+#include <QGraphicsScene>
 #include "../model/street.hpp"
 #include "mapstreet.hpp"
-#include <QWheelEvent>
+#include "mapbus.hpp"
 
-namespace Ui {
-class Map;
-}
-
-class Map : public QGraphicsView
+class Map : public QGraphicsScene
 {
     Q_OBJECT
 
 public:
-    explicit Map(QWidget *parent = nullptr);
+    explicit Map(StreetList streets, QWidget *parent = nullptr);
     ~Map();
 
 public slots:
-    void setStreets(StreetList streets);
     void changeStreetTraffic(int flow);
-    void changeSelectedStreet(MapStreet *ms);
-    //void changeBusPos();
-    //void addBus();
-    //void removeBus();
-
+    void updateBus(QPoint pos);
+    void addBus(int id, QString line);
+    void removeBus(int id);
 signals:
     void streetSelected(Street *selected);
-    //void busSelected();
+    void busSelected(int id);
 
 private:
     MapStreet *selectedMapStreet;
-    QList<MapStreet> mapStreets;
-    QGraphicsScene *scene;
+    MapBus *selectedMapBus;
 
 protected:
-    void wheelEvent(QWheelEvent *event) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 };
 
 #endif // MAP_HPP

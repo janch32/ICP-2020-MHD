@@ -35,7 +35,7 @@ void Simulation::Simulate(int seconds) {
                                 lines.GetLine(i->line).getRoute().first()->getBegin(),
                                 lines.GetLine(i->line).getRoute().first()->getStopPos());
 
-                    entries = lines.GetLine(i->line).getTimetable().getEntries();
+                    entries = *lines.GetLine(i->line).getTimetable().getEntries();
                     foreach (TimetableEntry e, entries) {
                         if (e.getStartTime() == time) {
                             entry = e;
@@ -81,7 +81,7 @@ void Simulation::Simulate(int seconds) {
             }
         }
 
-        sleep(sleeptime);
+        //sleep(sleeptime);
         time = time.addSecs(60);
     }
 
