@@ -67,14 +67,6 @@ QPainterPath MapStreet::shape() const
     return paintPath;
 }
 
-void MapStreet::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
-    setSelected(shape().contains(event->pos()));
-
-    event->accept();
-    QGraphicsObject::mousePressEvent(event);
-}
-
 bool MapStreet::getSelected() const
 {
     return selected;
@@ -82,11 +74,7 @@ bool MapStreet::getSelected() const
 
 void MapStreet::setSelected(bool value)
 {
-    auto origSelected = selected;
     selected = value;
-    if(origSelected != value){
-        emit selectionChanged(this);
-    }
 }
 
 Street *MapStreet::getStreet()

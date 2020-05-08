@@ -18,7 +18,7 @@ void InitializeStreets(Streets *streets, StreetList parsed_streets);
 
 void InitializeLines(Lines *lines,  QHash<QString, Line> parsed_lines);
 
-void InitializeVehicleEventTable(Lines lines, VehicleEventTable table);
+void InitializeVehicleEventTable(Lines lines, VehicleEventTable *table);
 
 void InitializeTime(QTime *time, int hours, int minutes);
 

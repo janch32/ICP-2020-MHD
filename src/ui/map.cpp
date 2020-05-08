@@ -4,72 +4,71 @@
 
 #include <QtDebug>
 
-Map::Map(QWidget *parent) : QGraphicsView(parent)
+Map::Map(StreetList streets, QObject *parent) : QGraphicsScene(parent)
 {
     selectedMapStreet = nullptr;
 
-    scene = new QGraphicsScene(this);
-    this->setScene(scene);
     this->setBackgroundBrush(QBrush(QColor(210, 210, 210)));
+    for(const auto s: streets){
+        addItem(new MapStreet(s));
+    }
 }
 
 Map::~Map()
 {
-    delete scene;
-}
 
-void Map::setStreets(StreetList streets)
-{
-    //selectedMapStreet(nullptr);
-    mapStreets.clear();
-
-    for(const auto s: streets){
-        auto ms = new MapStreet(s);
-        //mapStreets.append((MapStreet(s)));
-        //auto ms = &mapStreets.last();
-        connect(ms, &MapStreet::selectionChanged, this, &Map::changeSelectedStreet);
-        scene->addItem(ms);
-    }
-
-    resetTransform();
 }
 
 void Map::changeStreetTraffic(int flow)
 {
     if(selectedMapStreet == nullptr) return;
     selectedMapStreet->getStreet()->setTrafficFlow(flow / 100.0);
-    scene->invalidate();
+    invalidate();
 }
 
-void Map::changeSelectedStreet(MapStreet *ms)
+void Map::updateBus(QPoint pos)
 {
-    if(ms == nullptr){
-        selectedMapStreet = nullptr;
-    }else if(selectedMapStreet != ms){
-        if(!ms->getSelected()) return;
-        if(selectedMapStreet != nullptr){
-            selectedMapStreet->setSelected(false);
+
+}
+
+void Map::addBus(int id, QString line)
+{
+
+}
+
+void Map::removeBus(int id)
+{
+
+}
+
+void Map::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    auto item = itemAt(mouseEvent->scenePos(), QTransform());
+
+    for(auto i : items()){
+        if(MapBus *b = dynamic_cast<MapBus *>(i)){
+            b->setSelected(false);
+        }else if(MapStreet *s = dynamic_cast<MapStreet *>(i)){
+            s->setSelected(false);
         }
-        selectedMapStreet = ms;
-    }else{
-        return;
     }
 
-    scene->invalidate();
-    if(selectedMapStreet == nullptr){
+    selectedMapBus = dynamic_cast<MapBus *>(item);
+    selectedMapStreet = dynamic_cast<MapStreet *>(item);
+
+    if(selectedMapStreet != nullptr){
+        selectedMapStreet->setSelected(true);
+        emit streetSelected(selectedMapStreet->getStreet());
+    }else{
         emit streetSelected(nullptr);
-    }else{
-        emit streetSelected(ms->getStreet());
     }
-}
 
-void Map::wheelEvent(QWheelEvent *event)
-{
-    event->accept();
-
-    if(event->delta() > 0){
-        scale(1.2, 1.2);
-    }else{
-        scale(0.8, 0.8);
+    if(selectedMapBus != nullptr){
+        selectedMapBus->setSelected(true);
+        emit busSelected(selectedMapBus->getId());
     }
+
+    invalidate();
+    //if(selectedMapStreet != nullptr) selectedMapStreet->setSelected(false);
+    QGraphicsScene::mousePressEvent(mouseEvent);
 }

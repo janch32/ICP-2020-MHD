@@ -18,7 +18,7 @@ void InitializeLines(Lines *lines,  QHash<QString, Line> parsed_lines) {
         lines->AddLine(i.value());
 }
 
-void InitializeVehicleEventTable(Lines lines, VehicleEventTable vehicle_table) {
+void InitializeVehicleEventTable(Lines lines, VehicleEventTable *vehicle_table) {
     QHash<QString, QTime> line_spawn;
 
     QList<Line> lines_list = lines.GetAllLines();
@@ -31,10 +31,10 @@ void InitializeVehicleEventTable(Lines lines, VehicleEventTable vehicle_table) {
         //qDebug() << i->getID();
         t_table = i->getTimetable();
 
-        line_spawn.insert(i->getID(),t_table.getEntries().first().getStartTime());
+        line_spawn.insert(i->getID(),t_table.getEntries()->first().getStartTime());
     }
 
-    vehicle_table.InitializeTable(line_spawn);
+    vehicle_table->InitializeTable(line_spawn);
 }
 
 void InitializeTime(QTime *time, int hours, int minutes) {

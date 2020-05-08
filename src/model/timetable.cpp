@@ -68,7 +68,7 @@ Timetable::Timetable(QList<TimetableEntry> entries)
     this->entries = entries;
 }
 
-QList<TimetableEntry> Timetable::getEntries() const
+QList<TimetableEntry> *Timetable::getEntries()
 {
-    return entries;
+    return &entries;
 }

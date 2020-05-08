@@ -20,7 +20,10 @@ QStringList CsvParser::getLine()
     if(endOfFile()) return list;
 
     QByteArray line = file.readLine();
-    return QString::fromUtf8(line).split(',');
+    auto lines = QString::fromUtf8(line).split(',');
+    auto last = lines.takeLast();
+    lines.append(last.trimmed());
+    return lines;
 }
 
 bool CsvParser::endOfFile()

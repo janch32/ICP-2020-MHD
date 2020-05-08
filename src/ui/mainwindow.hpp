@@ -3,6 +3,7 @@
 
 #include "../model/street.hpp"
 #include <QMainWindow>
+#include "map.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +24,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    Map *mapScene;
 };
 
 #endif // MAINWINDOW_H

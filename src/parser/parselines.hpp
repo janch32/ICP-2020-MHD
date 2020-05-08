@@ -7,7 +7,7 @@
 class ParseLines : public CsvParser
 {
 public:
-    QHash<QString, Line> getLines(QHash<QString, LineRoute> routes, QHash<QString, Timetable> timetables);
+    QHash<QString, Line> getLines(QHash<QString, LineRoute> routes, QHash<QString, Timetable *> timetables);
 };
 
 #endif // PARSELINES_HPP

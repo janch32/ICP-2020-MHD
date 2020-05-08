@@ -41,9 +41,12 @@ QString Vehicle::GetLine() {
 
 void Vehicle::CommenceRide(QTime time){
     Street street = *(journey.first());
-    Street next = *(timetable.getNextStop(time));
-    if (street.getEnd() == next.getBegin() ||
-        street.getBegin() == next.getBegin()) {
+    Street next = *(timetable.getNextStop(time.addSecs(1)));
+    if (((street.getBegin().x() == next.getEnd().x()) &&
+            (street.getBegin().y() == next.getEnd().y())) ||
+        ((street.getBegin().x() == next.getBegin().x()) &&
+         (street.getBegin().y() == next.getBegin().y()))
+            ) {
             direction = next.getBegin();
     }
     else {

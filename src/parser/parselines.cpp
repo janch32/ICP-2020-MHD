@@ -1,6 +1,6 @@
 #include "parselines.hpp"
 
-QHash<QString, Line> ParseLines::getLines(QHash<QString, LineRoute> routes, QHash<QString, Timetable> timetables)
+QHash<QString, Line> ParseLines::getLines(QHash<QString, LineRoute> routes, QHash<QString, Timetable *> timetables)
 {
     QHash<QString, Line> lines;
 
@@ -15,7 +15,7 @@ QHash<QString, Line> ParseLines::getLines(QHash<QString, LineRoute> routes, QHas
             line[1],
             line[2].trimmed(),
             routes.value(line[0]),
-            timetables.value(line[0])
+            *timetables.value(line[0])
         );
 
         lines.insert(line[0], l);

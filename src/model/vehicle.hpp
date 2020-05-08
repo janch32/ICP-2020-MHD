@@ -49,7 +49,7 @@ class Vehicle {
 
         LineRoute journey;
         TimetableEntry timetable;
-        int journey_no;
+        int journey_no = 0;
 };
 
 #endif

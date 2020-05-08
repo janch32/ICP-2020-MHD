@@ -10,10 +10,8 @@
 using namespace std;
 
 class Vehicles {
-    private:
-        QMap<int, Vehicle> vehicles;
-
     public:
+        QMap<int, Vehicle> vehicles;
         Vehicles();
         ~Vehicles();
         void AddVehicle(Vehicle vehicle);

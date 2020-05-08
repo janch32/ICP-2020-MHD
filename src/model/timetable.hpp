@@ -35,7 +35,7 @@ public:
     Timetable();
     Timetable(QList<TimetableEntry> entries);
 
-    QList<TimetableEntry> getEntries() const;
+    QList<TimetableEntry> *getEntries();
 };
 
 #endif // TIMETABLE_HPP
