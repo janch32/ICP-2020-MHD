@@ -19,10 +19,10 @@ Map::~Map()
 
 }
 
-void Map::changeStreetTraffic(int flow)
+void Map::changeStreetTraffic(int traffic)
 {
     if(selectedMapStreet == nullptr) return;
-    selectedMapStreet->getStreet()->setTrafficFlow(flow / 100.0);
+    selectedMapStreet->getStreet()->setTraffic(traffic);
     invalidate();
 }
 

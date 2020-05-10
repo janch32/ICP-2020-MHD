@@ -120,13 +120,13 @@ float ComputeStep(Vehicle *vehicle, Streets streets, QTime time, int steptime) {
 
     vehicle->curr_journey_lenght = length;
 
-    vehicle->SetSteps(length/step);
+    vehicle->SetSteps(round(length/step));
 
     return step;
 }
 
 void MakeDelay(Vehicle *vehicle, Streets streets, QTime time, int steptime) {
-    int delay = vehicle->journey[vehicle->journey_no]->getTrafficFlow();
+    int delay = vehicle->journey[vehicle->journey_no]->getTraffic();
     foreach (TimetableCell c ,vehicle->timetable.GetCells()){
         c.time = c.time.addSecs(delay);
     }

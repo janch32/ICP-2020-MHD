@@ -37,8 +37,8 @@ public:
     float getStopPos() const;
     void setStopPos(float value);
 
-    int getTrafficFlow() const;
-    void setTrafficFlow(int value);
+    int getTraffic() const;
+    void setTraffic(int value);
 };
 
 class StreetList : public QHash<QString, Street*>{
