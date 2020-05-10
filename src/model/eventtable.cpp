@@ -47,3 +47,7 @@ void VehicleEventTable::InitializeTable(QHash<QString, QTime> line_spawn) {
         event_table.insert(i.value(), e);
     }
 }
+
+void EventTable::InsertEvent(QTime key, Event value) {
+    event_table.insert(key,value);
+}

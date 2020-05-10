@@ -47,10 +47,10 @@ void Vehicle::CommenceRide(QTime time){
         ((street.getBegin().x() == next.getBegin().x()) &&
          (street.getBegin().y() == next.getBegin().y()))
             ) {
-            direction = next.getBegin();
+            direction = next.getEnd();
     }
     else {
-        direction = next.getEnd();
+        direction = next.getBegin();
     }
 
     on_street = street.getID();
@@ -59,20 +59,27 @@ void Vehicle::CommenceRide(QTime time){
 }
 
 void Vehicle::TurnOnStreet(){
-    Street last = on_street;
-    journey_no++;
+    Street last = *(journey[journey_no]);
+    this->journey_no++;
     Street curr = *(journey[journey_no]);
-    on_street = curr.getID();
-    if (last.getEnd() == curr.getBegin() ||
-        last.getBegin() == curr.getBegin()) {
-            direction = curr.getEnd();
+    this->on_street = curr.getID();
+    if (((curr.getBegin().x() == last.getEnd().x()) &&
+         (curr.getBegin().y() == last.getEnd().y())) ||
+     ((curr.getBegin().x() == last.getBegin().x()) &&
+      (curr.getBegin().y() == last.getBegin().y()))
+         ) {
+        this->direction = curr.getEnd();
     }
     else {
-        direction = curr.getBegin();
+        this->direction = curr.getBegin();
     }
 }
 
 void Vehicle::ArriveOnStop(QTime time) {
+    if(next_stop != on_street){
+        on_street = next_stop;
+        journey_no++;
+    }
     next_stop = timetable.getNextStop(time)->getID();
 }
 

@@ -6,6 +6,8 @@
 #include "../model/streets.hpp"
 
 
+bool GetDestination(QPoint *dest, QPoint vd, QPoint vp, float percentualy);
+
 void Step(Vehicle *vehicle);
 
 void MoveVehicle(Vehicle *vehicle, QPoint position);
