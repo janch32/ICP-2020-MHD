@@ -120,7 +120,7 @@ float ComputeStep(Vehicle *vehicle, Streets streets, QTime time, int steptime) {
 
     vehicle->curr_journey_lenght = length;
 
-    vehicle->SetSteps(length/step);
+    vehicle->SetSteps(round(length/step));
 
     return step;
 }

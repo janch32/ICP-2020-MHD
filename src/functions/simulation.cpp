@@ -108,38 +108,7 @@ void Simulation::Simulate(int seconds) {
         for (v = vehicles.begin(); v != vehicles.end(); ++v){
             qDebug() << "Vehicle: " << v->GetIdNumber() << " Position: X=" << v->GetPosition().x() << " Y=" << v->GetPosition().y();
         }
-        /*Toto je odlozeno na neurcito
-        curr_events = this->move_event_table.GetEventsFromTime(time);
 
-        for( i = curr_events.begin(); i != curr_events.end(); ++i) {
-
-            switch (i->action.GetType()) {
-                case Move:
-                    vehicle = this->vehicles.GetVehicle(i->number);
-                    if(vehicle.GetSteps() == 1) {
-                        //posledni krok pred zastavkou
-                        position = GetAbsolutePosition(
-                                    streets.GetStreet(vehicle.TellStop()).getEnd(),
-                                    streets.GetStreet(vehicle.TellStop()).getBegin(),
-                                    streets.GetStreet(vehicle.TellStop()).getStopPos()
-                                    );
-                        MoveVehicle(this->vehicles.GetVehicle(i->number), position);
-                    }
-                    else {
-                        Step(this->vehicles.GetVehicle(i-));
-                    }
-
-                break;
-
-                case End:
-                break;
-
-                default:
-                break;
-            }
-          */
-
-         //sleep(sleeptime);
          this->time = this->time.addSecs(steptime);
         }
 
@@ -162,6 +131,10 @@ int Simulation::GetStepTime(){
 
 void Simulation::SetStepTime(int steptime) {
     this->steptime = steptime;
+}
+
+void Simulation::AlternateLineRoute(int no){
+
 }
 
 /**
