@@ -24,6 +24,7 @@ public slots:
     void singleStep();
     void timeSet(QTime time);
     void stepSizeSet(int step);
+    void reset();
 
 signals:
     void tick(int seconds);

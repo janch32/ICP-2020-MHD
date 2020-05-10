@@ -8,7 +8,6 @@
 #include "../parser/parseroutes.hpp"
 #include "../parser/parselines.hpp"
 #include "../parser/parsetimetables.hpp"
-
 #include "../functions/simulation.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -16,14 +15,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    mapScene = nullptr;
+    lastOpenedPath = "../examples";
 
     connect(ui->actionClose, SIGNAL(triggered()), this, SLOT(closeApp()));
     connect(ui->actionOpenSim, SIGNAL(triggered()), this, SLOT(selectSimulationFolder()));
+    connect(ui->actionReload, SIGNAL(triggered()), this, SLOT(loadSimulationData()));
 
     connect(ui->timer, SIGNAL(tick(int)), this, SLOT(simulationStep(int)));
     connect(ui->timer, SIGNAL(reset(QTime)), this, SLOT(simulationReset(QTime)));
 
-    selectSimulationFolder();
+    loadSimulationData();
 }
 
 MainWindow::~MainWindow()
@@ -33,12 +35,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::selectSimulationFolder()
 {
-    //auto baseDirPath = QFileDialog::getExistingDirectory(this, "Vybrat složku simulace...");
-    //if(baseDirPath.isEmpty()) return;
-    QString baseDirPath = "../examples";
+    auto baseDirPath = QFileDialog::getExistingDirectory(this, "Vybrat složku simulace...");
+    if(baseDirPath.isEmpty()) return;
+    lastOpenedPath = baseDirPath;
 
-    qDebug() << baseDirPath;
-    QDir baseDir(baseDirPath);
+    loadSimulationData();
+}
+
+void MainWindow::loadSimulationData()
+{
+    ui->actionReload->setEnabled(true);
+    QDir baseDir(lastOpenedPath);
 
     // Zíksat cesty
     ParseStreets parseStreets;
@@ -74,6 +81,15 @@ void MainWindow::selectSimulationFolder()
 
     for(const auto l: lines){
         qDebug() << l.getID() << " " << l.getDisplayNumber() << " " << l.getDestination() << " " << l.getRoute();
+    }
+
+    ui->timer->reset();
+    selectStreet(nullptr);
+
+    if(mapScene != nullptr){
+        disconnect(mapScene, &Map::streetSelected, this, &MainWindow::selectStreet);
+        disconnect(ui->streetFlow, SIGNAL(valueChanged(int)), mapScene, SLOT(changeStreetTraffic(int)));
+        delete mapScene;
     }
 
     mapScene = new Map(streets);
