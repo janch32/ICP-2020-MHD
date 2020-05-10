@@ -34,6 +34,7 @@ void Simulation::Simulate(int seconds) {
                 for( v = vehicles.begin(); v != vehicles.end(); ++v) {
                     if(v->GetIdNumber() == i->number) {
                         this->vehicles.vehicles.remove(v->GetIdNumber());
+                        this->move_log.remove(v->GetIdNumber());
                     }
                 }
             }

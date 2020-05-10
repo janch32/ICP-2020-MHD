@@ -51,40 +51,7 @@ void Step(Vehicle *vehicle) {
     bool overflow;
 
     overflow = GetDestination(&dest, vd, vp, percentualy);
-/*
-    if(vd.x() > vp.x()) {
-        //pricitame k souradnici x
-        dest.setX( vp.x() + ( (vd.x() - vp.x()) * (percentualy/100) ) );
-        if(dest.x() > vd.x()) {overflow = true;}
-        else {
-            if (vd.y() > vp.y()) {
-                //pricitame k souradnici y
-                dest.setY( vp.y() + ( (vd.y() - vp.y()) * (percentualy/100)) );
-                if(dest.y() > vd.y()) {overflow = true;}
-            }
-            else{//odcitame od souradnice y
-                dest.setY( vp.y() - ( (vp.y() - vd.y()) * (percentualy/100)) );
-                if(dest.y() < vd.y()) {overflow = true;}
-            }
-        }
-    }
-    else {
-        //odcitame od souradice x
-        dest.setX(vp.x() - ( (vp.x() - vd.x()) * (percentualy/100) ));
-        if(dest.x() < vd.x()) {overflow = true;}
-        else {
-            if (vd.y() > vp.y()) {
-                //pricitame k souradnici y
-                dest.setY( vp.y() + ( (vd.y() - vp.y()) * (percentualy/100)) );
-                if(dest.y() > vd.y()) {overflow = true;}
-            }
-            else{//odcitame od souradnice y
-                dest.setY( vp.y() - ( (vp.y() - vd.y()) * (percentualy/100)) );
-                if(dest.y() < vd.y()) {overflow = true;}
-            }
-        }
-    }
-*/
+
     if(overflow) {
         //TODO: move za roh
         float part_step = step - GetLenght(vd, vp);
@@ -98,34 +65,7 @@ void Step(Vehicle *vehicle) {
         percentualy = part_step / (lenght/100);
 
         GetDestination(&dest, vd, vp, percentualy);
-/*
-        if(vd.x() > vp.x()) {
-            //pricitame k souradnici x
-            dest.setX( vp.x() + ( (vd.x() - vp.x()) * (percentualy/100) ) );
-                if (vd.y() > vp.y()) {
-                    //pricitame k souradnici y
-                    dest.setY( vp.y() + ( (vd.y() - vp.y()) * (percentualy/100)) );
-                    if(dest.y() > vd.y()) {overflow = true;}
-                }
-                else{//odcitame od souradnice y
-                    dest.setY( vp.y() - ( (vp.y() - vd.y()) * (percentualy/100)) );
-                    if(dest.y() < vd.y()) {overflow = true;}
-                }
-        }
-        else {
-            //odcitame od souradice x
-            dest.setX(vp.x() - ( (vp.x() - vd.x()) * (percentualy/100) ));
-                if (vd.y() > vp.y()) {
-                    //pricitame k souradnici y
-                    dest.setY( vp.y() + ( (vd.y() - vp.y()) * (percentualy/100)) );
-                    if(dest.y() > vd.y()) {overflow = true;}
-                }
-                else{//odcitame od souradnice y
-                    dest.setY( vp.y() - ( (vp.y() - vd.y()) * (percentualy/100)) );
-                    if(dest.y() < vd.y()) {overflow = true;}
-                }
-        }
-        */
+
         MoveVehicle(vehicle,dest);
     }
     else {

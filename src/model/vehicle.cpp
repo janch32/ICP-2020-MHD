@@ -39,19 +39,35 @@ QString Vehicle::GetLine() {
     return line_no;
 }
 
+QPoint Vehicle::GiveDirection(Street last, Street curr){
+    QPoint dir;
+    if (((curr.getBegin().x() == last.getEnd().x()) &&
+         (curr.getBegin().y() == last.getEnd().y())) ||
+     ((curr.getBegin().x() == last.getBegin().x()) &&
+      (curr.getBegin().y() == last.getBegin().y()))
+         ) {
+        dir = curr.getEnd();
+    }
+    else {
+        dir = curr.getBegin();
+    }
+    return dir;
+}
+
 void Vehicle::CommenceRide(QTime time){
     Street street = *(journey.first());
     Street next = *(timetable.getNextStop(time.addSecs(1)));
+
     if (((street.getBegin().x() == next.getEnd().x()) &&
-            (street.getBegin().y() == next.getEnd().y())) ||
-        ((street.getBegin().x() == next.getBegin().x()) &&
+         (street.getBegin().y() == next.getEnd().y())) ||
+         ((street.getBegin().x() == next.getBegin().x()) &&
          (street.getBegin().y() == next.getBegin().y()))
-            ) {
-            direction = next.getEnd();
-    }
-    else {
-        direction = next.getBegin();
-    }
+        ) {
+            this->direction = next.getEnd();
+        }
+        else {
+            this->direction = next.getBegin();
+        }
 
     on_street = street.getID();
     journey_no = 0;
@@ -63,20 +79,12 @@ void Vehicle::TurnOnStreet(){
     this->journey_no++;
     Street curr = *(journey[journey_no]);
     this->on_street = curr.getID();
-    if (((curr.getBegin().x() == last.getEnd().x()) &&
-         (curr.getBegin().y() == last.getEnd().y())) ||
-     ((curr.getBegin().x() == last.getBegin().x()) &&
-      (curr.getBegin().y() == last.getBegin().y()))
-         ) {
-        this->direction = curr.getEnd();
-    }
-    else {
-        this->direction = curr.getBegin();
-    }
+    this->direction = GiveDirection(last, curr);
 }
 
 void Vehicle::ArriveOnStop(QTime time) {
     if(next_stop != on_street){
+        direction = GiveDirection(*(journey[journey_no]), *(journey[journey_no+1]));
         on_street = next_stop;
         journey_no++;
     }
