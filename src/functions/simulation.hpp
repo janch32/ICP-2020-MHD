@@ -24,7 +24,9 @@ public:
     QHash<int, QPoint> move_log;
     VehicleEventTable event_table;
     void Simulate(int seconds);
-    void InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines, int start_hours, int start_minutes);
+    void InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines);
+    void SetTime(int start_hours, int start_minutes);
+    Vehicle GetVehicleById(int vehicleId);
 };
 
 #endif

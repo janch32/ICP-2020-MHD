@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "../model/street.hpp"
+#include "../functions/simulation.hpp"
 #include <QMainWindow>
 #include <QTime>
 #include "map.hpp"
@@ -28,6 +29,8 @@ public slots:
 private:
     Ui::MainWindow *ui;
     Map *mapScene;
+    Simulation simulation;
+    QHash<int, QPoint> prevMoveLog;
 };
 
 #endif // MAINWINDOW_H

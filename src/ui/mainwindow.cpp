@@ -24,8 +24,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->timer, SIGNAL(reset(QTime)), this, SLOT(simulationReset(QTime)));
 
     selectSimulationFolder();
-
-
 }
 
 MainWindow::~MainWindow()
@@ -78,22 +76,13 @@ void MainWindow::selectSimulationFolder()
         qDebug() << l.getID() << " " << l.getDisplayNumber() << " " << l.getDestination() << " " << l.getRoute();
     }
 
-    /**
-      * Toto je pro debugovaci ucely, pak si to udelej jinak
-*/
-    Simulation simulation;
-    simulation.InitializeSimulation(streets,lines, 15, 30);
-    simulation.Simulate(3000);
-
-
     mapScene = new Map(streets);
     ui->mapView->setScene(mapScene);
 
     connect(mapScene, &Map::streetSelected, this, &MainWindow::selectStreet);
     connect(ui->streetFlow, SIGNAL(valueChanged(int)), mapScene, SLOT(changeStreetTraffic(int)));
 
-    // Ukázka přidání busu
-    mapScene->addBus(1, "42");
+    simulation.InitializeSimulation(streets,lines);
 }
 
 void MainWindow::selectStreet(Street *street)
@@ -107,23 +96,40 @@ void MainWindow::selectStreet(Street *street)
         ui->streetName->setText(street->getName());
         ui->streetFlow->setValue(street->getTrafficFlow()*100);
     }
-
-    // Ukázka busu, kdžy se vybere ulice, změní pozici, jinka je odstraněn
-    if(street == nullptr){
-        mapScene->removeBus(1);
-    }else{
-        mapScene->updateBus(1, QPoint(10, 10));
-    }
 }
 
 void MainWindow::simulationStep(int seconds)
 {
+    if(mapScene == nullptr) return;
+
     qDebug() << "Simulation fired!" << seconds;
+    simulation.Simulate(seconds);
+    auto currMoveLog = simulation.move_log;
+    qDebug() << currMoveLog;
+
+    for(auto busId: currMoveLog.keys()){
+        if(!prevMoveLog.contains(busId)){
+            auto bus = simulation.GetVehicleById(busId);
+            mapScene->addBus(busId, bus.GetLine());
+        }
+
+        mapScene->updateBus(busId, currMoveLog[busId]);
+    }
+
+    for(auto prevBusId: prevMoveLog.keys()){
+        if(!currMoveLog.contains(prevBusId)){
+            mapScene->removeBus(prevBusId);
+        }
+    }
+
+    prevMoveLog = currMoveLog;
+
 }
 
 void MainWindow::simulationReset(QTime time)
 {
     qDebug() << "Simulation time set:" << time;
+    simulation.SetTime(time.hour(), time.minute());
 }
 
 void MainWindow::closeApp()

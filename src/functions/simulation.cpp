@@ -142,15 +142,23 @@ void Simulation::Simulate(int seconds) {
 
 }
 
+void Simulation::SetTime(int start_hours, int start_minutes)
+{
+    InitializeTime(&(time), start_hours, start_minutes);
+}
+
+Vehicle Simulation::GetVehicleById(int vehicleId)
+{
+    return vehicles.GetVehicle(vehicleId);
+}
+
 
 /**
  * @brief InitializeSimulation
  * @param parsed_streets
  * @param parsed_lines
- * @param start_hours
- * @param start_minutes
  */
-void Simulation::InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines, int start_hours, int start_minutes) {
+void Simulation::InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines) {
 
     InitializeStreets(&(streets), parsed_streets);
 /*DEBUG
@@ -167,5 +175,5 @@ void Simulation::InitializeSimulation(StreetList parsed_streets, QHash<QString, 
 */
     InitializeVehicleEventTable(lines, &(event_table));
 
-    InitializeTime(&(time), start_hours, start_minutes);
+    InitializeTime(&(time), 0, 0);
 }
