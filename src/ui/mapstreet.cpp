@@ -24,7 +24,7 @@ MapStreet::MapStreet(Street *street, QGraphicsItem *parent): QGraphicsObject(par
     float angle = qRadiansToDegrees(qAtan2(diff.y(), diff.x()));
 
     paintPath.setFillRule(Qt::FillRule::WindingFill);
-    paintPath.addRoundedRect(-8, -8, line.length() + 8, 16, 8, 8);
+    paintPath.addRoundedRect(-8, -8, line.length() + 16, 16, 8, 8);
     if(street->getStopPos() >= 0){
         paintPath.addEllipse(QPoint(line.length()*street->getStopPos(), 0), 11, 11);
     }
