@@ -23,7 +23,8 @@ class Vehicle {
         float step;
         QPoint direction;
         QPoint GiveDirection(Street last, Street curr);
-
+        //float slow_step;
+        //int slow_step_count;
         //QString GetNextStop(QString curr_stop);
 
     public:
@@ -48,9 +49,18 @@ class Vehicle {
         void Step();
         QPoint GetDirection();
 
+        /*
+        void SetSlowStep(float step);
+        float GetSlowStep();
+        void SetSlowSteps(int steps);
+        int GetSlowSteps();
+        void DecrementSlowSteps();
+        */
         LineRoute journey;
         TimetableEntry timetable;
         int journey_no = 0;
+        float curr_journey_lenght;
+
 };
 
 #endif

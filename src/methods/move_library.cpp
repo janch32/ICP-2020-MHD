@@ -81,7 +81,7 @@ void Step(Vehicle *vehicle) {
  * @param time
  * @return float
  */
-float ComputeStep(Vehicle *vehicle, Streets streets, QTime time) {
+float ComputeStep(Vehicle *vehicle, Streets streets, QTime time, int steptime) {
     float step;
     int no = vehicle->journey_no;
     QPoint position = vehicle->GetPosition();
@@ -116,11 +116,21 @@ float ComputeStep(Vehicle *vehicle, Streets streets, QTime time) {
         length += GetLenght(GetAbsolutePosition(s.getEnd(), s.getBegin(), s.getStopPos()), s.getEnd());
     }
 
-    step = length / (time.secsTo(dest_time) / 60);
+    step = length / (time.secsTo(dest_time) / steptime);
+
+    vehicle->curr_journey_lenght = length;
 
     vehicle->SetSteps(length/step);
 
     return step;
+}
+
+void MakeDelay(Vehicle *vehicle, Streets streets, QTime time, int steptime) {
+    int delay = vehicle->journey[vehicle->journey_no]->getTrafficFlow();
+    foreach (TimetableCell c ,vehicle->timetable.GetCells()){
+        c.time = c.time.addSecs(delay);
+    }
+    vehicle->SetStep(ComputeStep(vehicle, streets, time, steptime));
 }
 
 /**

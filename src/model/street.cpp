@@ -7,7 +7,7 @@ Street::Street()
     begin = QPoint(0, 0);
     end = QPoint(0, 0);
     stopPos = -1.0;
-    trafficFlow = 1.0;
+    traffic = 0;
 }
 
 Street::Street(QString id)
@@ -17,7 +17,7 @@ Street::Street(QString id)
     begin = QPoint(0, 0);
     end = QPoint(0, 0);
     stopPos = -1.0;
-    trafficFlow = 1.0;
+    traffic = 0;
 }
 
 Street::Street(QString id, QString name, QPoint beginPos, QPoint endPos, float stopPos)
@@ -27,7 +27,7 @@ Street::Street(QString id, QString name, QPoint beginPos, QPoint endPos, float s
     this->begin = beginPos;
     this->end = endPos;
     this->stopPos = stopPos;
-    trafficFlow = 1.0;
+    traffic = 0;
 }
 
 bool Street::operator==(const Street& rhs) const
@@ -85,12 +85,12 @@ void Street::setStopPos(float value)
     stopPos = value;
 }
 
-float Street::getTrafficFlow() const
+int Street::getTrafficFlow() const
 {
-    return trafficFlow;
+    return traffic;
 }
 
-void Street::setTrafficFlow(float value)
+void Street::setTrafficFlow(int value)
 {
-    trafficFlow = value;
+    traffic = value;
 }

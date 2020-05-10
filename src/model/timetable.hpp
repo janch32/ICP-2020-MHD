@@ -25,6 +25,7 @@ public:
     Street* getNextStop(QTime time);
     QTime getNextStopTime(QTime time);
     void appendCell(TimetableCell cell);
+    QList<TimetableCell> GetCells();
 };
 
 class Timetable

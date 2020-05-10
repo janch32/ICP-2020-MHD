@@ -56,6 +56,9 @@ void TimetableEntry::appendCell(TimetableCell cell)
     cells.append(cell);
 }
 
+QList<TimetableCell> TimetableEntry::GetCells(){
+    return cells;
+}
 
 
 Timetable::Timetable()

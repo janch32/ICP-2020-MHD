@@ -19,6 +19,7 @@ private:
     EventTable move_event_table;
     QTime time;
     int sleeptime;
+    int steptime;
     Vehicles vehicles;
 public:
     QHash<int, QPoint> move_log;
@@ -27,6 +28,9 @@ public:
     void InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines);
     void SetTime(int start_hours, int start_minutes);
     Vehicle GetVehicleById(int vehicleId);
+    int GetStepTime();
+    void SetStepTime(int steptime);
+    int vehicle_count = 0;
 };
 
 #endif
