@@ -122,7 +122,7 @@ int Vehicle::GetSteps() {
 void Vehicle::DecrementSteps() {
     steps--;
 }
-
+/*
 void Vehicle::SetSlowStep(float step){
     this->slow_step = step;
 }
@@ -141,3 +141,4 @@ int Vehicle::GetSlowSteps(){
 void Vehicle::DecrementSlowSteps(){
     slow_step_count--;
 }
+*/
