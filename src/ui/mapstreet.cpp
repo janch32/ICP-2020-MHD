@@ -47,7 +47,14 @@ void MapStreet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->setPen(QPen(selected ? whiteBrush.color() : highlightBrush.color(), 3));
     painter->setRenderHints(QPainter::Antialiasing);
 
-    painter->fillPath(paintPath, QBrush(selected ? QColor(100, 100, 255) : QColor(255, 255*street->getTrafficFlow(), 255*street->getTrafficFlow())));
+    QColor streetColor(100, 100, 255);
+    if(!selected){
+        auto traffic = street->getTraffic()/300.0;
+        if(traffic > 1) traffic = 1.0;
+        streetColor = QColor(255, 255 - 255 * traffic, 255 - 255 * traffic);
+    }
+
+    painter->fillPath(paintPath, QBrush(streetColor));
 
     if(street->getStopPos() >= 0){
         auto busStop = street->getBegin() + (street->getEnd() - street->getBegin()) * street->getStopPos();

@@ -16,7 +16,7 @@ public:
     ~Map();
 
 public slots:
-    void changeStreetTraffic(int flow);
+    void changeStreetTraffic(int traffic);
     void updateBus(int id, QPoint pos);
     void addBus(int id, QString line);
     void removeBus(int id);

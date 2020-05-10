@@ -19,6 +19,7 @@ SOURCES += main.cpp \
     parser/parseroutes.cpp \
     parser/parsestreets.cpp \
     parser/parsetimetables.cpp \
+    ui/busdetail.cpp \
     ui/mainwindow.cpp \
     ui/map.cpp \
     ui/mapbus.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     parser/parseroutes.hpp \
     parser/parsestreets.hpp \
     parser/parsetimetables.hpp \
+    ui/busdetail.hpp \
     ui/mainwindow.hpp \
     ui/map.hpp \
     ui/mapbus.hpp \
@@ -57,5 +59,6 @@ HEADERS += \
 
 
 FORMS += \
+    ui/busdetail.ui \
     ui/mainwindow.ui \
     ui/timer.ui

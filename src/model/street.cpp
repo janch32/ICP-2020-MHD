@@ -85,12 +85,12 @@ void Street::setStopPos(float value)
     stopPos = value;
 }
 
-int Street::getTrafficFlow() const
+int Street::getTraffic() const
 {
     return traffic;
 }
 
-void Street::setTrafficFlow(int value)
+void Street::setTraffic(int value)
 {
     traffic = value;
 }

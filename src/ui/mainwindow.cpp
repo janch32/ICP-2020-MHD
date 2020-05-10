@@ -88,7 +88,7 @@ void MainWindow::loadSimulationData()
 
     if(mapScene != nullptr){
         disconnect(mapScene, &Map::streetSelected, this, &MainWindow::selectStreet);
-        disconnect(ui->streetFlow, SIGNAL(valueChanged(int)), mapScene, SLOT(changeStreetTraffic(int)));
+        disconnect(ui->streetTraffic, SIGNAL(valueChanged(int)), mapScene, SLOT(changeStreetTraffic(int)));
         delete mapScene;
     }
 
@@ -96,7 +96,7 @@ void MainWindow::loadSimulationData()
     ui->mapView->setScene(mapScene);
 
     connect(mapScene, &Map::streetSelected, this, &MainWindow::selectStreet);
-    connect(ui->streetFlow, SIGNAL(valueChanged(int)), mapScene, SLOT(changeStreetTraffic(int)));
+    connect(ui->streetTraffic, SIGNAL(valueChanged(int)), mapScene, SLOT(changeStreetTraffic(int)));
 
     simulation.InitializeSimulation(streets,lines);
 }
@@ -106,11 +106,11 @@ void MainWindow::selectStreet(Street *street)
     if(street == nullptr){
         ui->streetParams->setEnabled(false);
         ui->streetName->setText("Nastavení průjezdnosti");
-        ui->streetFlow->setValue(100);
+        ui->streetTraffic->setValue(100);
     }else{
         ui->streetParams->setEnabled(true);
         ui->streetName->setText(street->getName());
-        ui->streetFlow->setValue(street->getTrafficFlow()*100);
+        ui->streetTraffic->setValue(street->getTraffic());
     }
 }
 
