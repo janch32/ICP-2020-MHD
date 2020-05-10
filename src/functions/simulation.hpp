@@ -30,6 +30,7 @@ public:
     Vehicle GetVehicleById(int vehicleId);
     int GetStepTime();
     void SetStepTime(int steptime);
+    int vehicle_count = 0;
 };
 
 #endif

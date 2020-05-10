@@ -9,7 +9,6 @@
 void Simulation::Simulate(int seconds) {
     VehicleEventTable ve_table = event_table;
     QTime final_time = time.addSecs(seconds);
-    int vehicle_count = 0;
 
     QList<Event> curr_events;
     QList<Event>::iterator i;
