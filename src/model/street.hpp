@@ -13,7 +13,7 @@ private:
     QPoint begin;
     QPoint end;
     float stopPos;
-    float trafficFlow;
+    int traffic;
 
 public:
     Street();
@@ -37,8 +37,8 @@ public:
     float getStopPos() const;
     void setStopPos(float value);
 
-    float getTrafficFlow() const;
-    void setTrafficFlow(float value);
+    int getTrafficFlow() const;
+    void setTrafficFlow(int value);
 };
 
 class StreetList : public QHash<QString, Street*>{

@@ -122,3 +122,22 @@ int Vehicle::GetSteps() {
 void Vehicle::DecrementSteps() {
     steps--;
 }
+
+void Vehicle::SetSlowStep(float step){
+    this->slow_step = step;
+}
+
+float Vehicle::GetSlowStep() {
+    return this->slow_step;
+}
+void Vehicle::SetSlowSteps(int steps){
+    this->slow_step_count = steps;
+}
+
+int Vehicle::GetSlowSteps(){
+    return this->slow_step_count;
+}
+
+void Vehicle::DecrementSlowSteps(){
+    slow_step_count--;
+}
