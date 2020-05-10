@@ -22,6 +22,7 @@ class Vehicle {
         int steps;
         float step;
         QPoint direction;
+        QPoint GiveDirection(Street last, Street curr);
 
         //QString GetNextStop(QString curr_stop);
 

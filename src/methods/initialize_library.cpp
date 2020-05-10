@@ -25,13 +25,17 @@ void InitializeVehicleEventTable(Lines lines, VehicleEventTable *vehicle_table) 
 
     QList<Line>::iterator i;
     Timetable t_table;
+    QList<TimetableEntry> *entries;
 
     for( i = lines_list.begin(); i != lines_list.end(); ++i) {
         //DEBUG
         //qDebug() << i->getID();
         t_table = i->getTimetable();
+        entries = t_table.getEntries();
 
-        line_spawn.insert(i->getID(),t_table.getEntries()->first().getStartTime());
+        foreach (TimetableEntry e, *entries) {
+            line_spawn.insertMulti(i->getID(),e.getStartTime());
+        }
     }
 
     vehicle_table->InitializeTable(line_spawn);
