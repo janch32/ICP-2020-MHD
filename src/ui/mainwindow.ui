@@ -156,6 +156,7 @@
      <string>Soubor</string>
     </property>
     <addaction name="actionOpenSim"/>
+    <addaction name="actionReload"/>
     <addaction name="separator"/>
     <addaction name="actionClose"/>
    </widget>
@@ -165,10 +166,24 @@
    <property name="text">
     <string>Načíst simulaci...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionClose">
    <property name="text">
     <string>Zavřít</string>
+   </property>
+  </action>
+  <action name="actionReload">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Načíst znovu</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
    </property>
   </action>
  </widget>

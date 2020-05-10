@@ -6,13 +6,7 @@ Timer::Timer(QWidget *parent) :
     ui(new Ui::Timer)
 {
     ui->setupUi(this);
-    timeChanged = true;
-    seconds = 60;
-    time = QTime(15, 30, 0);
-    stop();
-
-    ui->simStep->setValue(seconds);
-    ui->simTime->setTime(time);
+    reset();
 
     timer.setInterval(1000);
     timer.start();
@@ -80,4 +74,15 @@ void Timer::timeSet(QTime time)
 void Timer::stepSizeSet(int step)
 {
     seconds = step;
+}
+
+void Timer::reset()
+{
+    timeChanged = true;
+    seconds = 60;
+    time = QTime(15, 30, 0);
+    stop();
+
+    ui->simStep->setValue(seconds);
+    ui->simTime->setTime(time);
 }
