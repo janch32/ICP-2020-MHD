@@ -16,6 +16,7 @@ class Timer : public QWidget
 public:
     explicit Timer(QWidget *parent = nullptr);
     ~Timer();
+    QTime getTime() const;
 
 public slots:
     void timeout();

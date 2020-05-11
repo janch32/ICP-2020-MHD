@@ -4,7 +4,8 @@
 #include <QtMath>
 #include <QtDebug>
 
-const QBrush MapStreet::highlightBrush = QBrush(QColor(200, 200, 255));
+const QBrush MapStreet::highlightBrush = QBrush(QColor(246, 229, 141));
+const QBrush MapStreet::selectBrush = QBrush(QColor(200, 200, 255));
 const QBrush MapStreet::blackBrush = QBrush(QColor(0, 0, 0));
 const QBrush MapStreet::whiteBrush = QBrush(QColor(255, 255, 255));
 
@@ -12,6 +13,7 @@ MapStreet::MapStreet(Street *street, QGraphicsItem *parent): QGraphicsObject(par
 {
     this->street = street;
     selected = false;
+    highlighted = false;
 
     QFont font;
     font.setPixelSize(10);
@@ -44,11 +46,13 @@ MapStreet::MapStreet(Street *street, QGraphicsItem *parent): QGraphicsObject(par
 
 void MapStreet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->setPen(QPen(selected ? whiteBrush.color() : highlightBrush.color(), 3));
+    painter->setPen(QPen(selected ? whiteBrush.color() : selectBrush.color(), 3));
     painter->setRenderHints(QPainter::Antialiasing);
 
     QColor streetColor(100, 100, 255);
-    if(!selected){
+    if(highlighted){
+        streetColor = highlightBrush.color();
+    }else if(!selected){
         auto traffic = street->getTraffic()/300.0;
         if(traffic > 1) traffic = 1.0;
         streetColor = QColor(255, 255 - 255 * traffic, 255 - 255 * traffic);
@@ -87,4 +91,14 @@ void MapStreet::setSelected(bool value)
 Street *MapStreet::getStreet()
 {
     return street;
+}
+
+bool MapStreet::getHighlighted() const
+{
+    return highlighted;
+}
+
+void MapStreet::setHighlighted(bool value)
+{
+    highlighted = value;
 }

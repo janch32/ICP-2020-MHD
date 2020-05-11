@@ -47,7 +47,7 @@ void InitializeTime(QTime *time, int hours, int minutes) {
 
 Vehicle SpawnVehicle(Line line, int number, QPoint position, LineRoute route, TimetableEntry entry) {
 
-    return Vehicle(line.getID(), number, position, route, entry);
+    return Vehicle(line.getID(), number, position, route, entry, line);
 }
 
 

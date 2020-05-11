@@ -20,6 +20,8 @@ public slots:
     void updateBus(int id, QPoint pos);
     void addBus(int id, QString line);
     void removeBus(int id);
+    void highlightStreet(QString streetId);
+
 signals:
     void streetSelected(Street *selected);
     void busSelected(int id);

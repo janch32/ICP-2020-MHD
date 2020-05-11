@@ -28,6 +28,7 @@ public:
     void InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines);
     void SetTime(int start_hours, int start_minutes);
     Vehicle GetVehicleById(int vehicleId);
+    bool HasVehicleById(int vehicleId);
     int GetStepTime();
     void SetStepTime(int steptime);
     int vehicle_count = 0;

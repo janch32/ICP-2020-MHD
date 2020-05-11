@@ -21,13 +21,18 @@ public:
 
     Street *getStreet();
 
+    bool getHighlighted() const;
+    void setHighlighted(bool value);
+
 private:
     QPainterPath paintPath;
     QPainterPath namePath;
     Street *street;
     bool selected;
+    bool highlighted;
 
     static const QBrush highlightBrush;
+    static const QBrush selectBrush;
     static const QBrush blackBrush;
     static const QBrush whiteBrush;
 };

@@ -156,6 +156,11 @@ Vehicle Simulation::GetVehicleById(int vehicleId)
     return vehicles.GetVehicle(vehicleId);
 }
 
+bool Simulation::HasVehicleById(int vehicleId)
+{
+    return vehicles.HasVehicle(vehicleId);
+}
+
 int Simulation::GetStepTime(){
     return this->steptime;
 }

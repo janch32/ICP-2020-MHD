@@ -17,6 +17,7 @@ class Vehicles {
         void AddVehicle(Vehicle vehicle);
         int RemoveVehicle(int number);
         Vehicle GetVehicle(int number);
+        bool HasVehicle(int number);
         QList<Vehicle> GetAllVehicles();
         int GetLenght();
 

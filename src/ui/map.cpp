@@ -46,12 +46,29 @@ void Map::addBus(int id, QString line)
 
 void Map::removeBus(int id)
 {
+    if(selectedMapBus != nullptr && selectedMapBus->getId() == id){
+        selectedMapBus = nullptr;
+        emit busSelected(-1);
+    }
+
     for(auto i : items()){
         if(MapBus *b = dynamic_cast<MapBus *>(i)){
             if(b->getId() != id) continue;
             removeItem(b);
-            invalidate();
-            return;
+        }else if(MapStreet *s = dynamic_cast<MapStreet *>(i)){
+            if(selectedMapBus == nullptr) s->setHighlighted(false);
+        }
+    }
+}
+
+void Map::highlightStreet(QString streetId)
+{
+    for(auto i : items()){
+        if(MapStreet *s = dynamic_cast<MapStreet *>(i)){
+            if(s->getStreet()->getID() == streetId){
+                s->setHighlighted(true);
+                return;
+            }
         }
     }
 }
@@ -64,6 +81,7 @@ void Map::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if(MapBus *b = dynamic_cast<MapBus *>(i)){
             b->setSelected(false);
         }else if(MapStreet *s = dynamic_cast<MapStreet *>(i)){
+            s->setHighlighted(false);
             s->setSelected(false);
         }
     }

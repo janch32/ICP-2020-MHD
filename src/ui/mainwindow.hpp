@@ -23,6 +23,8 @@ public slots:
     void closeApp();
     void selectSimulationFolder();
     void selectStreet(Street *street);
+    void selectBus(int busId);
+    void updateBus();
     void simulationStep(int seconds);
     void simulationReset(QTime time);
     void loadSimulationData();
@@ -30,6 +32,7 @@ private:
     Ui::MainWindow *ui;
     Map *mapScene;
     Simulation simulation;
+    int selectedBus;
     QHash<int, QPoint> prevMoveLog;
     QString lastOpenedPath;
 };

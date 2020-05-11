@@ -9,7 +9,8 @@ Vehicle::Vehicle() {
     on_street = "ghost_street";
 }
 
-Vehicle::Vehicle(QString l, int n, QPoint position, LineRoute route, TimetableEntry timetable){
+Vehicle::Vehicle(QString l, int n, QPoint position, LineRoute route, TimetableEntry timetable, Line line){
+    rawLine = line;
     line_no = l;
     number = n;
     map_position = position;
@@ -37,6 +38,21 @@ QPoint Vehicle::GetPosition() {
 
 QString Vehicle::GetLine() {
     return line_no;
+}
+
+QString Vehicle::getNextStop() const
+{
+    return next_stop;
+}
+
+Line Vehicle::getRawLine() const
+{
+    return rawLine;
+}
+
+void Vehicle::setRawLine(const Line &value)
+{
+    rawLine = value;
 }
 
 QPoint Vehicle::GiveDirection(Street last, Street curr){

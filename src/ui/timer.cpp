@@ -56,6 +56,7 @@ void Timer::singleStep()
     if(timeChanged){
         timeChanged = false;
         emit reset(time);
+        emit tick(seconds);
     }else{
         time = time.addSecs(seconds);
         ui->simTime->setTime(time);
@@ -85,4 +86,9 @@ void Timer::reset()
 
     ui->simStep->setValue(seconds);
     ui->simTime->setTime(time);
+}
+
+QTime Timer::getTime() const
+{
+    return time;
 }

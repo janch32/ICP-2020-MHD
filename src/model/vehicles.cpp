@@ -21,6 +21,11 @@ Vehicle Vehicles::GetVehicle(int id) {
     return vehicles.value(id);
 }
 
+bool Vehicles::HasVehicle(int number)
+{
+    return vehicles.contains(number);
+}
+
 QList<Vehicle> Vehicles::GetAllVehicles() {
     QList<Vehicle> vehicle_list = vehicles.values();
 

@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     mapScene = nullptr;
+    selectedBus = -1;
     lastOpenedPath = "../examples";
 
     connect(ui->actionClose, SIGNAL(triggered()), this, SLOT(closeApp()));
@@ -88,6 +89,7 @@ void MainWindow::loadSimulationData()
 
     if(mapScene != nullptr){
         disconnect(mapScene, &Map::streetSelected, this, &MainWindow::selectStreet);
+        disconnect(mapScene, &Map::busSelected, this, &MainWindow::selectBus);
         disconnect(ui->streetTraffic, SIGNAL(valueChanged(int)), mapScene, SLOT(changeStreetTraffic(int)));
         delete mapScene;
     }
@@ -96,6 +98,7 @@ void MainWindow::loadSimulationData()
     ui->mapView->setScene(mapScene);
 
     connect(mapScene, &Map::streetSelected, this, &MainWindow::selectStreet);
+    connect(mapScene, &Map::busSelected, this, &MainWindow::selectBus);
     connect(ui->streetTraffic, SIGNAL(valueChanged(int)), mapScene, SLOT(changeStreetTraffic(int)));
 
     simulation.InitializeSimulation(streets,lines);
@@ -106,12 +109,40 @@ void MainWindow::selectStreet(Street *street)
     if(street == nullptr){
         ui->streetParams->setEnabled(false);
         ui->streetName->setText("Nastavení průjezdnosti");
-        ui->streetTraffic->setValue(100);
+        ui->streetTraffic->setValue(0);
     }else{
         ui->streetParams->setEnabled(true);
         ui->streetName->setText(street->getName());
         ui->streetTraffic->setValue(street->getTraffic());
     }
+}
+
+void MainWindow::selectBus(int busId)
+{
+    selectedBus = busId;
+
+    if(selectedBus >= 0 && simulation.HasVehicleById(selectedBus)){
+        auto veh = simulation.GetVehicleById(busId);
+        for(auto street: veh.journey){
+            mapScene->highlightStreet(street->getID());
+        }
+    }
+
+    updateBus();
+}
+
+void MainWindow::updateBus()
+{
+    if(selectedBus < 0 || !simulation.HasVehicleById(selectedBus)){
+        selectedBus = -1;
+        ui->busRoute->removeBusData();
+        return;
+    }
+
+    ui->busRoute->displayBusData(
+        ui->timer->getTime(),
+        simulation.GetVehicleById(selectedBus)
+    );
 }
 
 void MainWindow::simulationStep(int seconds)
@@ -139,7 +170,7 @@ void MainWindow::simulationStep(int seconds)
     }
 
     prevMoveLog = currMoveLog;
-
+    if(selectedBus >= 0) updateBus();
 }
 
 void MainWindow::simulationReset(QTime time)
