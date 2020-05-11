@@ -180,7 +180,7 @@
     <bool>false</bool>
    </property>
    <property name="text">
-    <string>Načíst znovu</string>
+    <string>Znovu načíst</string>
    </property>
    <property name="shortcut">
     <string>F5</string>

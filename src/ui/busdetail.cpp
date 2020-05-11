@@ -26,7 +26,7 @@ void BusDetail::displayBusData(QTime time, Vehicle vehicle)
     removeBusData();
     ui->line->setEnabled(true);
     ui->line->setText(vehicle.getRawLine().getDisplayNumber());
-    ui->endStop->setText(vehicle.getRawLine().getDestination());
+    ui->endStop->setText("Směr " + vehicle.getRawLine().getDestination());
 
     QPen blackPen(QColor(0, 0, 0));
     QBrush passedBrush(QColor(0, 0, 255));
