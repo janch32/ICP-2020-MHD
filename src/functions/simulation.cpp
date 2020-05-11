@@ -66,7 +66,7 @@ void Simulation::Simulate(int seconds) {
                     this->vehicles.vehicles.find(v->GetIdNumber())->ArriveOnStop(time);
                     qDebug() << "Stop: " << this->vehicles.vehicles.find(v->GetIdNumber())->TellStop();
                     if(this->vehicles.vehicles.find(v->GetIdNumber())->journey_no == this->vehicles.vehicles.find(v->GetIdNumber())->journey.count() - 1) {
-                        QTime ti = time.addSecs(60);
+                        QTime ti = time.addSecs(steptime);
                         event_table.InsertEvent(ti,Event(v->GetIdNumber(), End));
                     }
                     else{
