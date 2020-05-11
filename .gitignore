@@ -27,7 +27,6 @@ qrc_*.cpp
 ui_*.h
 *.qmlc
 *.jsc
-Makefile*
 *build-*
 *.qm
 *.prl
@@ -53,3 +52,6 @@ compile_commands.json
 
 # Build folder
 /build
+
+# Doc folder
+/doc

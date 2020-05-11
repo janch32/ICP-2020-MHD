@@ -20,9 +20,6 @@
 #include "../model/eventtable.hpp"
 #include "../model/vehicle.hpp"
 
-#include "../parser/parsestreets.hpp"
-#include "../parser/parselines.hpp"
-
 /**
  * @brief Inicializuje seznam ulic a naplní ho naparsovanými daty ulic
  * @param streets seznam ulic

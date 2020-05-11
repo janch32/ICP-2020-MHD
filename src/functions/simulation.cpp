@@ -147,7 +147,7 @@ void Simulation::SetStepTime(int steptime) {
 }
 
 void Simulation::AlternateLineRoute(int no){
-
+    Q_UNUSED(no);
 }
 
 void Simulation::InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines) {
