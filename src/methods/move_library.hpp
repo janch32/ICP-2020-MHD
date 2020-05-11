@@ -14,7 +14,9 @@ void MoveVehicle(Vehicle *vehicle, QPoint position);
 
 float ComputeStep(Vehicle *vehicle, Streets streets, QTime time, int steptime);
 
-void MakeDelay(Vehicle *vehicle,Streets streets, QTime time, int steptime);
+float RecomputeStep(Vehicle *vehicle, Streets streets, QTime time, int steptime);
+
+void MakeDelay(Vehicle *vehicle);
 
 QPoint GetAbsolutePosition(QPoint A, QPoint B, float percent);
 

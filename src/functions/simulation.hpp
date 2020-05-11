@@ -32,6 +32,7 @@ public:
     int GetStepTime();
     void SetStepTime(int steptime);
     int vehicle_count = 0;
+    void AlternateLineRoute(int no);
 };
 
 #endif
