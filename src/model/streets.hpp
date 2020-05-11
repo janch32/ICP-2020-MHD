@@ -11,7 +11,7 @@ using namespace std;
 
 class Streets {
     private:
-        QMap<QString, Street> streets;
+        QMap<QString, Street*> streets;
     public:
         Streets();
         ~Streets();

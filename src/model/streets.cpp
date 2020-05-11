@@ -5,7 +5,7 @@ Streets::Streets() {}
 Streets::~Streets(){}
 
 void Streets::AddStreet(Street *street) {
-    streets.insert(street->getID(), *street);
+    streets.insert(street->getID(), street);
 }
 
 int Streets::RemoveStreet(QString id) {
@@ -13,11 +13,15 @@ int Streets::RemoveStreet(QString id) {
 }
 
 Street Streets::GetStreet(QString id) {
-    return streets.value(id);
+    return *streets.value(id);
 }
 
 QList<Street> Streets::GetAllStreets() {
-    QList<Street> street_list = streets.values();
+    QList<Street> street_list;
+
+    foreach (Street *s, streets.values()) {
+        street_list.append(*s);
+    }
 
     return street_list;
 }

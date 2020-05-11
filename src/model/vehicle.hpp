@@ -48,6 +48,8 @@ class Vehicle {
         void DecrementSteps();
         void Step();
         QPoint GetDirection();
+        int slowed;
+        void FlipSlow(int i);
 
         /*
         void SetSlowStep(float step);

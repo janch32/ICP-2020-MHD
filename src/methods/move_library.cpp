@@ -87,6 +87,9 @@ float ComputeStep(Vehicle *vehicle, Streets streets, QTime time, int steptime) {
     QPoint position = vehicle->GetPosition();
     Street next_stop = streets.GetStreet(vehicle->TellNextStop());
     QTime dest_time = vehicle->timetable.getNextStopTime(time.addSecs(1));
+    if (dest_time > time) {
+        dest_time = vehicle->timetable.getNextStopTime(time.addSecs(60));
+    }
 
     float length;
     length = GetLenght(position, vehicle->GetDirection());
@@ -125,12 +128,70 @@ float ComputeStep(Vehicle *vehicle, Streets streets, QTime time, int steptime) {
     return step;
 }
 
-void MakeDelay(Vehicle *vehicle, Streets streets, QTime time, int steptime) {
-    int delay = vehicle->journey[vehicle->journey_no]->getTraffic();
-    foreach (TimetableCell c ,vehicle->timetable.GetCells()){
-        c.time = c.time.addSecs(delay);
+float RecomputeStep(Vehicle *vehicle, Streets streets, QTime time, int steptime) {
+    float step;
+    int no = vehicle->journey_no;
+    QPoint position = vehicle->GetPosition();
+    Street next_stop = streets.GetStreet(vehicle->TellNextStop());
+    QTime dest_time = vehicle->timetable.getNextStopTime(time.addSecs(1));
+    Street last_street;
+
+    float length = 0;
+
+    Street s = *(vehicle->journey[no]);
+    if (s.getID() == next_stop.getID()) {
+
+            length = GetLenght(GetAbsolutePosition(s.getEnd(), s.getBegin(), s.getStopPos()), position);
+
     }
-    vehicle->SetStep(ComputeStep(vehicle, streets, time, steptime));
+    else {
+        //cyklus se provadi pokud ma projet ulici bez zastaveni
+        while (s.getID() != next_stop.getID()) {
+            length += GetLenght(s.getEnd(), s.getBegin());
+            no++;
+            s = *(vehicle->journey[no]);
+        }
+
+        last_street = *(vehicle->journey[no - 1]);
+        if ((
+                    (last_street.getEnd().x() == s.getBegin().x()) &&
+                    (last_street.getEnd().y() == s.getBegin().y())
+             )
+                ||
+            (
+                    (last_street.getBegin().x() == s.getBegin().x()) &&
+                    (last_street.getBegin().y() == s.getBegin().y())
+            )) {
+            length += GetLenght(GetAbsolutePosition(s.getEnd(), s.getBegin(), s.getStopPos()), s.getBegin());
+        }
+        else { //pokud nesouhlasi -> souhlasi s koncem
+            length += GetLenght(GetAbsolutePosition(s.getEnd(), s.getBegin(), s.getStopPos()), s.getEnd());
+        }
+    }
+
+    step = length / (time.secsTo(dest_time) / steptime);
+
+    vehicle->curr_journey_lenght = length;
+
+        vehicle->SetSteps(round(length/step + 0.5));
+
+    return step;
+}
+
+void MakeDelay(Vehicle *vehicle) {
+    int delay = vehicle->journey[vehicle->journey_no]->getTraffic();
+    QList<TimetableCell>* cell_list = vehicle->timetable.GetCells();
+    QString curr = vehicle->TellStop();
+    int passed = 0;
+
+    for(QList<TimetableCell>::iterator i = cell_list->begin(); i != cell_list->end(); ++i){
+        if(!passed && i->street->getID() == curr) {
+            passed = !passed;
+        }
+        if(passed) {
+            i->time = i->time.addSecs(delay);
+        }
+    }
 }
 
 /**

@@ -7,6 +7,7 @@ Vehicle::Vehicle() {
     //curr_stop = "ghost_street";
     //next_stop = "ghost_street";
     on_street = "ghost_street";
+    slowed = 0;
 }
 
 Vehicle::Vehicle(QString l, int n, QPoint position, LineRoute route, TimetableEntry timetable){
@@ -18,6 +19,7 @@ Vehicle::Vehicle(QString l, int n, QPoint position, LineRoute route, TimetableEn
     on_street = "ghost_street";
     journey = route;
     this->timetable = timetable;
+    slowed = 0;
 }
 
 Vehicle::~Vehicle(){}
@@ -80,13 +82,17 @@ void Vehicle::TurnOnStreet(){
     Street curr = *(journey[journey_no]);
     this->on_street = curr.getID();
     this->direction = GiveDirection(last, curr);
+    FlipSlow(0);
 }
 
 void Vehicle::ArriveOnStop(QTime time) {
     if(next_stop != on_street){
         direction = GiveDirection(*(journey[journey_no]), *(journey[journey_no+1]));
         on_street = next_stop;
-        journey_no++;
+        journey_no++;      
+    }
+    if(timetable.getNextStopTime(time).second() != 0) {
+        time = time.addSecs(60);
     }
     next_stop = timetable.getNextStop(time)->getID();
 }
@@ -121,6 +127,10 @@ int Vehicle::GetSteps() {
 
 void Vehicle::DecrementSteps() {
     steps--;
+}
+
+void Vehicle::FlipSlow(int i){
+    slowed = i;
 }
 /*
 void Vehicle::SetSlowStep(float step){

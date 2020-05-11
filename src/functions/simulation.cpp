@@ -41,8 +41,11 @@ void Simulation::Simulate(int seconds) {
 
         vehicles = this->vehicles.GetAllVehicles();
         for( v = vehicles.begin(); v != vehicles.end(); ++v) {
-            if(streets.GetStreet(this->vehicles.GetVehicle(v->GetIdNumber()).TellStop()).getTraffic() != 0) {
-                MakeDelay(&(*this->vehicles.vehicles.find(vehicle.GetIdNumber())), streets, time, steptime);
+            vehicle = this->vehicles.GetVehicle(v->GetIdNumber());
+            if(streets.GetStreet(this->vehicles.GetVehicle(v->GetIdNumber()).TellStop()).getTraffic() != 0 && !this->vehicles.GetVehicle(v->GetIdNumber()).slowed) {
+                MakeDelay(&(*this->vehicles.vehicles.find(v->GetIdNumber())));
+                this->vehicles.vehicles.find(v->GetIdNumber())->SetStep(RecomputeStep(&(*this->vehicles.vehicles.find(v->GetIdNumber())), streets, time, steptime));
+                this->vehicles.vehicles.find(v->GetIdNumber())->FlipSlow(1);
             }
 
             if(this->vehicles.GetVehicle(v->GetIdNumber()).GetSteps() == 1) {
