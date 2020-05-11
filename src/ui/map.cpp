@@ -7,6 +7,7 @@
 Map::Map(StreetList streets, QObject *parent) : QGraphicsScene(parent)
 {
     selectedMapStreet = nullptr;
+    selectedMapBus = nullptr;
 
     this->setBackgroundBrush(QBrush(QColor(210, 210, 210)));
     for(const auto s: streets){

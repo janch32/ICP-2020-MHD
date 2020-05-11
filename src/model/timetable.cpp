@@ -1,5 +1,10 @@
 #include "timetable.hpp"
 
+TimetableCell::TimetableCell()
+{
+    street = new Street();
+}
+
 TimetableCell::TimetableCell(QTime time, Street *street)
 {
     this->time = time;

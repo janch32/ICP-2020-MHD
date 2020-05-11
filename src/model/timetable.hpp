@@ -9,6 +9,7 @@ class TimetableCell{
 public:
     QTime time;
     Street* street;
+    TimetableCell();
     TimetableCell(QTime time, Street *street);
 };
 

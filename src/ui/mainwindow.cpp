@@ -157,7 +157,7 @@ void MainWindow::simulationStep(int seconds)
     for(auto busId: currMoveLog.keys()){
         if(!prevMoveLog.contains(busId)){
             auto bus = simulation.GetVehicleById(busId);
-            mapScene->addBus(busId, bus.GetLine());
+            mapScene->addBus(busId, bus.getRawLine().getDisplayNumber());
         }
 
         mapScene->updateBus(busId, currMoveLog[busId]);

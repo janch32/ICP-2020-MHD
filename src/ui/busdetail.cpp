@@ -38,12 +38,12 @@ void BusDetail::displayBusData(QTime time, Vehicle vehicle)
     auto cells = vehicle.timetable.GetCells();
 
     bool passed = true;
-    for(int i=0; i < cells.count(); i++){
-        if(cells[i].street->getID() == vehicle.getNextStop()){
+    for(int i=0; i < cells->count(); i++){
+        if(cells->value(i).street->getID() == vehicle.getNextStop()){
             passed = false;
             if(i > 0){
-                int diff = cells[i-1].time.secsTo(cells[i].time);
-                int busDiff = cells[i-1].time.secsTo(time);
+                int diff = cells->value(i-1).time.secsTo(cells->value(i).time);
+                int busDiff = cells->value(i-1).time.secsTo(time);
 
                 busIcon.setTop(30*i - 30 + 30*(static_cast<float>(busDiff)/diff));
                 busIcon.setHeight(10);
@@ -56,7 +56,7 @@ void BusDetail::displayBusData(QTime time, Vehicle vehicle)
 
         scene->addEllipse(0, 30*i, 10, 10, blackPen, passed ? passedBrush : stopBrush);
 
-        auto text = scene->addText(cells[i].time.toString("HH:mm") + " " + cells[i].street->getName());
+        auto text = scene->addText(cells->value(i).time.toString("HH:mm") + " " + cells->value(i).street->getName());
         text->setPos(20, 30*i - 5);
     }
 
