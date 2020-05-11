@@ -80,7 +80,7 @@ void Timer::stepSizeSet(int step)
 void Timer::reset()
 {
     timeChanged = true;
-    seconds = 60;
+    seconds = 10;
     time = QTime(15, 30, 0);
     stop();
 

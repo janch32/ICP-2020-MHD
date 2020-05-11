@@ -40,11 +40,6 @@ QString Vehicle::GetLine() {
     return line_no;
 }
 
-QString Vehicle::getNextStop() const
-{
-    return next_stop;
-}
-
 Line Vehicle::getRawLine() const
 {
     return rawLine;

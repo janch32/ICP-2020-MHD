@@ -100,8 +100,10 @@ void MainWindow::loadSimulationData()
     connect(mapScene, &Map::streetSelected, this, &MainWindow::selectStreet);
     connect(mapScene, &Map::busSelected, this, &MainWindow::selectBus);
     connect(ui->streetTraffic, SIGNAL(valueChanged(int)), mapScene, SLOT(changeStreetTraffic(int)));
-
+    simulation.Restart();
     simulation.InitializeSimulation(streets,lines);
+    simulation.SetStepTime(10);
+    ui->timer->reset();
 }
 
 void MainWindow::selectStreet(Street *street)
@@ -150,6 +152,7 @@ void MainWindow::simulationStep(int seconds)
     if(mapScene == nullptr) return;
 
     qDebug() << "Simulation fired!" << seconds;
+
     simulation.Simulate(seconds);
     auto currMoveLog = simulation.move_log;
     qDebug() << currMoveLog;

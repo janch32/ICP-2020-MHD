@@ -163,10 +163,6 @@ class Vehicle {
          * @brief délka aktuální cesty k další zastávce
          */
         float curr_journey_lenght;
-
-        /* TODO smazat======================================= */
-        QString getNextStop() const;
-        /*==================================================== */
         /**
          * @brief Vrátí objekt linky náležící k vozidlu
          * @return linka, objekt

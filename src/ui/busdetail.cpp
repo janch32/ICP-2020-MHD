@@ -39,7 +39,7 @@ void BusDetail::displayBusData(QTime time, Vehicle vehicle)
 
     bool passed = true;
     for(int i=0; i < cells->count(); i++){
-        if(cells->value(i).street->getID() == vehicle.getNextStop()){
+        if(cells->value(i).street->getID() == vehicle.TellNextStop()){
             passed = false;
             if(i > 0){
                 int diff = cells->value(i-1).time.secsTo(cells->value(i).time);
