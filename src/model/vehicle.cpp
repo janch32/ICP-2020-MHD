@@ -4,8 +4,7 @@ Vehicle::Vehicle() {
     number = 0;
     line_no= "0";
     map_position = QPoint(0, 0);
-    //curr_stop = "ghost_street";
-    //next_stop = "ghost_street";
+    next_stop = "ghost_street";
     on_street = "ghost_street";
     slowed = 0;
 }
@@ -15,8 +14,7 @@ Vehicle::Vehicle(QString l, int n, QPoint position, LineRoute route, TimetableEn
     line_no = l;
     number = n;
     map_position = position;
-    //curr_stop = "ghost_street";
-    //next_stop = "ghost_street";
+    next_stop = "ghost_street";
     on_street = "ghost_street";
     journey = route;
     this->timetable = timetable;
@@ -149,23 +147,4 @@ void Vehicle::DecrementSteps() {
 void Vehicle::FlipSlow(int i){
     slowed = i;
 }
-/*
-void Vehicle::SetSlowStep(float step){
-    this->slow_step = step;
-}
 
-float Vehicle::GetSlowStep() {
-    return this->slow_step;
-}
-void Vehicle::SetSlowSteps(int steps){
-    this->slow_step_count = steps;
-}
-
-int Vehicle::GetSlowSteps(){
-    return this->slow_step_count;
-}
-
-void Vehicle::DecrementSlowSteps(){
-    slow_step_count--;
-}
-*/

@@ -2,10 +2,6 @@
 
 #include "simulation.hpp"
 
-/**
- * @brief Simulate
- * @param seconds
- */
 void Simulation::Simulate(int seconds) {
     VehicleEventTable ve_table = event_table;
     QTime final_time = time.addSecs(seconds);
@@ -145,11 +141,6 @@ void Simulation::AlternateLineRoute(int no){
 
 }
 
-/**
- * @brief InitializeSimulation
- * @param parsed_streets
- * @param parsed_lines
- */
 void Simulation::InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines) {
 
     InitializeStreets(&(streets), parsed_streets);

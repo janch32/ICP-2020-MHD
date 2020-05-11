@@ -53,7 +53,6 @@ void Step(Vehicle *vehicle) {
     overflow = GetDestination(&dest, vd, vp, percentualy);
 
     if(overflow) {
-        //TODO: move za roh
         float part_step = step - GetLenght(vd, vp);
         vehicle->TurnOnStreet();
         vp = vd;
@@ -187,22 +186,10 @@ void MakeDelay(Vehicle *vehicle) {
     }
 }
 
-/**
- * @brief Posune vozidlo na danou pozici
- *
- * @param vehicle
- * @param position
- */
 void MoveVehicle(Vehicle *vehicle, QPoint position) {
     vehicle->SetPosition(position);
 }
 
-/**
- * @brief GetAbsolutePosition
- * @param A - end
- * @param B - begin
- * @param percent from begin
- */
 QPoint GetAbsolutePosition(QPoint A, QPoint B, float percent) {
     QPoint ret;
 
@@ -211,12 +198,7 @@ QPoint GetAbsolutePosition(QPoint A, QPoint B, float percent) {
 
     return ret;
 }
-/**
- * @brief GetLenght
- * @param A - end
- * @param B - begin
- * @return
- */
+
 float GetLenght(QPoint A, QPoint B) {
     return sqrt(pow(A.x() - B.x(), 2) + pow(A.y() - B.y(), 2));
 }
