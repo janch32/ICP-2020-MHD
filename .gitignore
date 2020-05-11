@@ -55,3 +55,6 @@ compile_commands.json
 
 # Doc folder
 /doc
+
+icp
+*.zip

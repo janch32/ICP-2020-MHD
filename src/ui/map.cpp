@@ -2,7 +2,6 @@
  * @file map.cpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Implemenetace metod grafické scény (mapy) pro zobrazení ulic a spojů
  */

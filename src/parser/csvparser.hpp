@@ -2,7 +2,6 @@
  * @file csvparser.hpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Definice třídy pro parsování CSV souborů
  */

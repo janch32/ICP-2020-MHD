@@ -2,7 +2,6 @@
  * @file timer.hpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Definice UI prvku pro ovládání simulace
  */

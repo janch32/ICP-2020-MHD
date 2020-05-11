@@ -1,4 +1,4 @@
-QT       += core gui
+QT += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -6,7 +6,8 @@ CONFIG += c++17
 TARGET = icp
 TEMPLATE = app
 
-SOURCES += main.cpp \
+SOURCES += \
+    main.cpp \
     functions/simulation.cpp \
     methods/initialize_library.cpp \
     methods/move_library.cpp \

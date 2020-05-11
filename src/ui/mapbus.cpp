@@ -2,7 +2,6 @@
  * @file mapbus.cpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Implementace metod prvku scény reprezentující pohyb spoje na mapě
  */

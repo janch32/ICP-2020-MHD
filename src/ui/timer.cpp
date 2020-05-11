@@ -2,7 +2,6 @@
  * @file timer.cpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Implementace metod UI prvku pro ovládání simulace
  */

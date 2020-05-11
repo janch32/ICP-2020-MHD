@@ -2,7 +2,6 @@
  * @file mainwindow.hpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Definice hlavního okna aplikace spojující zobrazení a simulaci
  */

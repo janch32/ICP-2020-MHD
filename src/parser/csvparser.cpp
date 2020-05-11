@@ -2,7 +2,6 @@
  * @file csvparser.cpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Implementace metod třídy pro prasování CSV souborů
  */

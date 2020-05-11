@@ -5,6 +5,8 @@
  * @author Michal Krůl (xkrulm00)
  *
  * Vstupní bod aplikace. Hlavní dění je v ui/mainwindow.cpp
+ *
+ * Soubor je automaticky generovaný
  */
 #include "ui/mainwindow.hpp"
 #include <QApplication>

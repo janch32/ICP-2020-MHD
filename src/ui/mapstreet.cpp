@@ -2,7 +2,6 @@
  * @file mapstreet.cpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Implemenetace metod prvku scény reprezentující ulici na mapě
  */

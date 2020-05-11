@@ -19,5 +19,5 @@ pack: clean
 
 clean:
 	rm -rf doc build
-	rm -f icp
+	rm -f icp xchalo16-xkrulm00.zip
 	mkdir -p doc

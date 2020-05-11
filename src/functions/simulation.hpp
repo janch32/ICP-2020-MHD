@@ -1,7 +1,6 @@
 /**
  * @file simulation.hpp
  *
- * @author Jan Chaloupka (xchalo16)
  * @author Michal Krůl (xkrulm00)
  *
  * Definice hlavní třídy simulace

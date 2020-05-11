@@ -2,7 +2,6 @@
  * @file street.hpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Definice metod třídy reprezentující ulici
  */

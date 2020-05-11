@@ -1,7 +1,6 @@
 /**
  * @file vehicle.cpp
  *
- * @author Jan Chaloupka (xchalo16)
  * @author Michal Krůl (xkrulm00)
  *
  * Implementace metod třídy reprezentující vozidlo v simulaci

@@ -2,7 +2,6 @@
  * @file mapview.cpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Implementace metod UI prvku pro zobrazení scény s ulicemi a spoji
  */

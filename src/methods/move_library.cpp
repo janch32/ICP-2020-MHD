@@ -1,7 +1,6 @@
 /**
  * @file move_library.cpp
  *
- * @author Jan Chaloupka (xchalo16)
  * @author Michal Krůl (xkrulm00)
  *
  * Implementace funkcí pro pohyb spojů v simulaci

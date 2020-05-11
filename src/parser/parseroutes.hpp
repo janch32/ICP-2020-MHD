@@ -2,7 +2,6 @@
  * @file parseroutes.hpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Definice třídy pro získání cest linek z CSV souboru
  */

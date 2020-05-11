@@ -2,7 +2,6 @@
  * @file parsetimetables.hpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Definice třídy pro získání jízdního řádu všech linek z CSV souboru
  */

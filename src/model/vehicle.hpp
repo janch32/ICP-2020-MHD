@@ -1,7 +1,6 @@
 /**
  * @file vehicle.hpp
  *
- * @author Jan Chaloupka (xchalo16)
  * @author Michal Krůl (xkrulm00)
  *
  * Definice třídy reprezentující vozidlo v simulaci

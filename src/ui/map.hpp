@@ -2,7 +2,6 @@
  * @file map.hpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Definice grafické scény (mapy) pro zobrazení ulic a spojů
  */

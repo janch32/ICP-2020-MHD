@@ -2,7 +2,6 @@
  * @file mapview.hpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Definice UI prvku pro zobrazení scény s ulicemi a spoji
  */

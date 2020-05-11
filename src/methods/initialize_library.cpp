@@ -1,7 +1,6 @@
 /**
  * @file initialize_library.cpp
  *
- * @author Jan Chaloupka (xchalo16)
  * @author Michal Krůl (xkrulm00)
  *
  * Implementace inicializace simulace

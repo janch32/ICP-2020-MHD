@@ -1,7 +1,6 @@
 /**
  * @file move_library.hpp
  *
- * @author Jan Chaloupka (xchalo16)
  * @author Michal Krůl (xkrulm00)
  *
  * Definice funkcí pro pohyb spojů v simulaci

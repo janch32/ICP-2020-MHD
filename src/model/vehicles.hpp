@@ -1,7 +1,6 @@
 /**
  * @file vehicles.hpp
  *
- * @author Jan Chaloupka (xchalo16)
  * @author Michal Krůl (xkrulm00)
  *
  * TODO

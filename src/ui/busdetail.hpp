@@ -2,7 +2,6 @@
  * @file busdetail.hpp
  *
  * @author Jan Chaloupka (xchalo16)
- * @author Michal Krůl (xkrulm00)
  *
  * Definice UI prvku pro zobrazení informace o vybraném spoji (itinerář)
  */
