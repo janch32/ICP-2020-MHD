@@ -1,3 +1,12 @@
+/**
+ * @file mapview.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implementace metod UI prvku pro zobrazení scény s ulicemi a spoji
+ */
+
 #include "mapview.hpp"
 
 MapView::MapView(QWidget *parent) : QGraphicsView(parent)
@@ -19,6 +28,4 @@ void MapView::wheelEvent(QWheelEvent *event)
     }else{
         scale(0.8, 0.8);
     }
-
-    //invalidateScene();
 }

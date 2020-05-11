@@ -1,3 +1,12 @@
+/**
+ * @file parsetimetables.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implementace metod třídy pro získání jízdního řádu všech linek z CSV souboru
+ */
+
 #include "parsetimetables.hpp"
 #include <QtDebug>
 

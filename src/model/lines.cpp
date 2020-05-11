@@ -1,3 +1,12 @@
+/**
+ * @file lines.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * TODO
+ */
+
 #include "lines.hpp"
 
 Lines::Lines() {}

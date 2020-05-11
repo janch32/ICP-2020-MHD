@@ -1,3 +1,12 @@
+/**
+ * @file lines.hpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * TODO
+ */
+
 #ifndef LINES
 #define LINES
 

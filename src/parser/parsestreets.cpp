@@ -1,3 +1,12 @@
+/**
+ * @file parsestreets.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implementace metod třídy pro získání ulic z CSV souboru
+ */
+
 #include "parsestreets.hpp"
 
 Street *ParseStreets::getStreet()

@@ -1,3 +1,12 @@
+/**
+ * @file mainwindow.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implemenetace metod hlavního okna aplikace spojující zobrazení a simulaci
+ */
+
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 #include <QFileDialog>

@@ -1,3 +1,12 @@
+/**
+ * @file streets.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * TODO
+ */
+
 #include "streets.hpp"
 
 Streets::Streets() {}

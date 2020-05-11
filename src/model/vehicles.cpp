@@ -1,3 +1,12 @@
+/**
+ * @file vehicles.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * TODO
+ */
+
 #include <map>
 #include <list>
 #include <string>

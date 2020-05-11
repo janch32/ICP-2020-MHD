@@ -1,3 +1,12 @@
+/**
+ * @file mapstreet.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implemenetace metod prvku scény reprezentující ulici na mapě
+ */
+
 #include "mapstreet.hpp"
 #include <QPainterPath>
 #include <QMatrix>
@@ -44,7 +53,7 @@ MapStreet::MapStreet(Street *street, QGraphicsItem *parent): QGraphicsObject(par
     namePath = mat.map(namePath);
 }
 
-void MapStreet::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void MapStreet::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setPen(QPen(selected ? whiteBrush.color() : selectBrush.color(), 3));
     painter->setRenderHints(QPainter::Antialiasing);

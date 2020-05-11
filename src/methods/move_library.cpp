@@ -1,3 +1,12 @@
+/**
+ * @file move_library.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implementace funkcí pro pohyb spojů v simulaci
+ */
+
 #include "move_library.hpp"
 
 bool GetDestination(QPoint *dest, QPoint vd, QPoint vp, float percentualy) {
@@ -68,7 +77,7 @@ void Step(Vehicle *vehicle) {
         MoveVehicle(vehicle,dest);
     }
     else {
-        MoveVehicle(vehicle, dest);      
+        MoveVehicle(vehicle, dest);
     }
     vehicle->DecrementSteps();
 }

@@ -1,3 +1,12 @@
+/**
+ * @file eventtable.hpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * TODO
+ */
+
 #ifndef EVENTTABLE_H
 #define EVENTTABLE_H
 

@@ -1,3 +1,12 @@
+/**
+ * @file eventtable.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * TODO
+ */
+
 #include "eventtable.hpp"
 
 Action::Action() {

@@ -1,3 +1,12 @@
+/**
+ * @file simulation.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implementace hlavní logiky simulaci
+ */
+
 #include <QtDebug>
 
 #include "simulation.hpp"

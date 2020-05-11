@@ -1,3 +1,12 @@
+/**
+ * @file parselines.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implementace metod třídy pro získání linek z CSV souboru
+ */
+
 #include "parselines.hpp"
 
 QHash<QString, Line> ParseLines::getLines(QHash<QString, LineRoute> routes, QHash<QString, Timetable *> timetables)

@@ -1,3 +1,12 @@
+/**
+ * @file busdetail.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implementace metod UI prvku pro zobrazení informace o vybraném spoji
+ */
+
 #include "busdetail.hpp"
 #include "ui_busdetail.h"
 #include <QtDebug>

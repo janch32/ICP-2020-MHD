@@ -1,3 +1,12 @@
+/**
+ * @file street.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implementace metod třídy reprezentující ulici
+ */
+
 #include "street.hpp"
 
 Street::Street()

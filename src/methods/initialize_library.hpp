@@ -1,3 +1,12 @@
+/**
+ * @file initialize_library.hpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Definice funkcí pro inicializaci simulace
+ */
+
 #include <unistd.h>
 #include <QList>
 #include <QString>

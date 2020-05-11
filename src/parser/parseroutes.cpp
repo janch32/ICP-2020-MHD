@@ -1,3 +1,12 @@
+/**
+ * @file parseroutes.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implementace metod třídy pro získání cest linek z CSV souboru
+ */
+
 #include "parseroutes.hpp"
 
 QHash<QString, LineRoute> ParseRoutes::getRoutes(StreetList streets)

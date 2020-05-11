@@ -1,9 +1,18 @@
+/**
+ * @file mapbus.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implementace metod prvku scény reprezentující pohyb spoje na mapě
+ */
+
 #include "mapbus.hpp"
 
 const QBrush MapBus::defaultBrush = QBrush(QColor(0, 0, 0));
 const QBrush MapBus::selectedBrush = QBrush(QColor(255, 0, 0));
 
-MapBus::MapBus(int id, QString line, QGraphicsItem *parent)
+MapBus::MapBus(int id, QString line, QGraphicsItem *parent) : QGraphicsObject(parent)
 {
     this->id = id;
     selected = false;
@@ -21,7 +30,7 @@ MapBus::MapBus(int id, QString line, QGraphicsItem *parent)
     paintPath.addText(-fontWidth/2, -10, font, line);
 }
 
-void MapBus::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void MapBus::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     painter->setBrush(selected ? selectedBrush : defaultBrush);
     painter->setRenderHints(QPainter::Antialiasing);

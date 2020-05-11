@@ -1,3 +1,12 @@
+/**
+ * @file vehicle.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implementace metod třídy reprezentující vozidlo v simulaci
+ */
+
 #include "vehicle.hpp"
 
 Vehicle::Vehicle() {
@@ -99,7 +108,7 @@ void Vehicle::ArriveOnStop(QTime time) {
     if(next_stop != on_street){
         direction = GiveDirection(*(journey[journey_no]), *(journey[journey_no+1]));
         on_street = next_stop;
-        journey_no++;      
+        journey_no++;
     }
     if(timetable.getNextStopTime(time).second() != 0) {
         time = time.addSecs(60);

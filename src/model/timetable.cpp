@@ -1,3 +1,12 @@
+/**
+ * @file timetable.cpp
+ *
+ * @author Jan Chaloupka (xchalo16)
+ * @author Michal Krůl (xkrulm00)
+ *
+ * Implementace metod tříd pro práci s jízdním řádem
+ */
+
 #include "timetable.hpp"
 
 TimetableCell::TimetableCell()
