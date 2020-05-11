@@ -153,21 +153,28 @@ void Simulation::AlternateLineRoute(int no){
 void Simulation::InitializeSimulation(StreetList parsed_streets, QHash<QString, Line> parsed_lines) {
 
     InitializeStreets(&(streets), parsed_streets);
-/*DEBUG
-    foreach (Street s, streets.GetAllStreets()) {
-        qDebug() << s.getID();
-    }
-*/
+
     InitializeLines(&(lines), parsed_lines);
-/*DEBUG
-    QList<Line> list = lines.GetAllLines();
-    foreach (Line l, list) {
-        qDebug() << l.getID();
-    }
-*/
+
     InitializeVehicleEventTable(lines, &(event_table));
 
     InitializeTime(&(time), 0, 0);
 
     SetStepTime(60);
+}
+
+void Simulation::Restart() {
+
+    streets.Restart();
+
+    lines.Restart();
+
+    vehicles.Restart();
+
+    move_log.clear();
+
+    event_table.Restart();
+
+    vehicle_count = 0;
+
 }

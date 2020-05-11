@@ -36,6 +36,10 @@ int Vehicles::GetLenght() {
     return vehicles.size();;
 }
 
+void Vehicles::Restart() {
+    vehicles.clear();
+}
+
 
 
 

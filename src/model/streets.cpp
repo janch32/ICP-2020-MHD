@@ -30,6 +30,10 @@ int Streets::GetLenght() {
     return streets.size();
 }
 
+void Streets::Restart() {
+    streets.clear();
+}
+
 
 
 

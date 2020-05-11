@@ -44,10 +44,14 @@ void VehicleEventTable::InitializeTable(QHash<QString, QTime> line_spawn) {
 
     for(i = line_spawn.begin(); i != line_spawn.end(); ++i) {
         Event e(i.key(), Spawn);
-        event_table.insert(i.value(), e);
+        event_table.insertMulti(i.value(), e);
     }
 }
 
 void EventTable::InsertEvent(QTime key, Event value) {
     event_table.insert(key,value);
+}
+
+void EventTable::Restart(){
+    event_table.clear();
 }

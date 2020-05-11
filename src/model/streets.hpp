@@ -20,6 +20,7 @@ class Streets {
         Street GetStreet(QString id);
         QList<Street> GetAllStreets();
         int GetLenght();
+        void Restart();
 
 };
 

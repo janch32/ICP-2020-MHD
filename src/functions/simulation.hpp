@@ -16,9 +16,7 @@ class Simulation{
 private:
     Streets streets;
     Lines lines;
-    EventTable move_event_table;
     QTime time;
-    int sleeptime;
     int steptime;
     Vehicles vehicles;
 public:
@@ -33,6 +31,7 @@ public:
     void SetStepTime(int steptime);
     int vehicle_count = 0;
     void AlternateLineRoute(int no);
+    void Restart();
 };
 
 #endif

@@ -35,6 +35,7 @@ public:
     EventTable();
     QList<Event> GetEventsFromTime(QTime time);
     void InsertEvent(QTime key, Event value);
+    void Restart();
 
 };
 

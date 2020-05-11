@@ -20,6 +20,7 @@ class Lines {
         Line GetLine(QString id);
         QList<Line> GetAllLines();
         int GetLenght();
+        void Restart();
 
 };
 

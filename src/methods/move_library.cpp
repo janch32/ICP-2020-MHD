@@ -74,13 +74,6 @@ void Step(Vehicle *vehicle) {
     vehicle->DecrementSteps();
 }
 
-/**
- * @brief ComputeStep
- * @param vehicle
- * @param streets
- * @param time
- * @return float
- */
 float ComputeStep(Vehicle *vehicle, Streets streets, QTime time, int steptime) {
     float step;
     int no = vehicle->journey_no;

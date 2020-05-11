@@ -20,6 +20,7 @@ class Vehicles {
         bool HasVehicle(int number);
         QList<Vehicle> GetAllVehicles();
         int GetLenght();
+        void Restart();
 
 };
 

@@ -74,22 +74,23 @@ QPoint Vehicle::GiveDirection(Street last, Street curr){
 
 void Vehicle::CommenceRide(QTime time){
     Street street = *(journey.first());
-    Street next = *(timetable.getNextStop(time.addSecs(1)));
+    Street n_stop = *timetable.getNextStop(time);
+    Street next = *(journey[journey_no+1]);
 
     if (((street.getBegin().x() == next.getEnd().x()) &&
          (street.getBegin().y() == next.getEnd().y())) ||
          ((street.getBegin().x() == next.getBegin().x()) &&
          (street.getBegin().y() == next.getBegin().y()))
         ) {
-            this->direction = next.getEnd();
+            this->direction = street.getBegin();
         }
         else {
-            this->direction = next.getBegin();
+            this->direction = street.getEnd();
         }
 
     on_street = street.getID();
     journey_no = 0;
-    next_stop = next.getID();
+    next_stop = n_stop.getID();
 }
 
 void Vehicle::TurnOnStreet(){

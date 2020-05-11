@@ -25,3 +25,7 @@ QList<Line> Lines::GetAllLines() {
 int Lines::GetLenght() {
     return lines.size();
 }
+
+void Lines::Restart() {
+    lines.clear();
+}
