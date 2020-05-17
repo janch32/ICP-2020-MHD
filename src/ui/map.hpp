@@ -24,7 +24,30 @@ class Map : public QGraphicsScene
 
 public:
     explicit Map(StreetList streets, QObject *parent = nullptr);
-    ~Map();
+
+    /**
+     * @brief Je nastaven mód výběru ulic
+     * @return Je aktivovaný mód výběru ulic
+     */
+    bool getMultiStreetSelectMode() const;
+
+    /**
+     * @brief Nastavit mód výběru ulic
+     * @param value Má se přejít do módu výběru ulic
+     */
+    void setMultiStreetSelectMode(bool value);
+
+    /**
+     * @brief Získat seznam vybranch ulic
+     * @return Seznam vybraných ulic
+     */
+    QList<MapStreet *> getSelectedStreets() const;
+
+    /**
+     * @brief Záská právě vybranou ulici
+     * @return Vybraná ulice nebo nullptr, pokud není vybraná žádná
+     */
+    Street *getSelectedStreet() const;
 
 public slots:
     /**
@@ -32,6 +55,11 @@ public slots:
      * @param traffic Nová hodnota provozu (zpoždení v sec)
      */
     void changeStreetTraffic(int traffic);
+
+    /**
+     * @brief Signalizovat, že má být ulice uzavřena
+     */
+    void closeSelectedStreet();
 
     /**
      * @brief Aktualizovat polohu spoje na mapě
@@ -76,9 +104,19 @@ signals:
 
 private:
     /**
+     * @brief Je zapnutý mód výběru více ulic
+     */
+    bool multiStreetSelectMode;
+
+    /**
      * @brief Vybraná ulice
      */
     MapStreet *selectedMapStreet;
+
+    /**
+     * @brief Pole vybraných ulic (v případě režimu výběru více ulic)
+     */
+    QList<MapStreet *> selectedStreets;
 
     /**
      * @brief Vybraný spoj

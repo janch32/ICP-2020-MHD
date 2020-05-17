@@ -75,6 +75,22 @@ public slots:
      * @brief Načíst data simulace z aktuálně vybrané složky
      */
     void loadSimulationData();
+
+    /**
+     * @brief Spustí tvorbu objížďky
+     */
+    void startRerouteMode();
+
+    /**
+     * @brief Zruší tvorbu objížďky
+     */
+    void cancelRerouteMode();
+
+    /**
+     * @brief Potvrdí tvorbu objíždky
+     */
+    void confirmRerouteMode();
+
 private:
     /**
      * @brief UI prvky vygenrované QTCreator designerem
@@ -97,6 +113,11 @@ private:
      * < 0, pokud není vybrán žádný spoj
      */
     int selectedBus;
+
+    /**
+     * @brief Je aktivní režim změny cesty vozidla
+     */
+    bool inRerouteMode;
 
     /**
      * @brief Předchozí seznam spojů simulace

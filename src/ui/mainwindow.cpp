@@ -25,11 +25,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     mapScene = nullptr;
     selectedBus = -1;
-    lastOpenedPath = "examples";
+    inRerouteMode = false;
+    lastOpenedPath = "../examples";
 
     connect(ui->actionClose, SIGNAL(triggered()), this, SLOT(closeApp()));
     connect(ui->actionOpenSim, SIGNAL(triggered()), this, SLOT(selectSimulationFolder()));
     connect(ui->actionReload, SIGNAL(triggered()), this, SLOT(loadSimulationData()));
+
+    connect(ui->buttonCancel, SIGNAL(pressed()), this, SLOT(cancelRerouteMode()));
+    connect(ui->buttonReroute, SIGNAL(pressed()), this, SLOT(startRerouteMode()));
 
     connect(ui->timer, SIGNAL(tick(int)), this, SLOT(simulationStep(int)));
     connect(ui->timer, SIGNAL(reset(QTime)), this, SLOT(simulationReset(QTime)));
@@ -114,8 +118,45 @@ void MainWindow::loadSimulationData()
     ui->timer->reset();
 }
 
+void MainWindow::startRerouteMode()
+{
+    if(mapScene == nullptr) return;
+
+    if(inRerouteMode){
+        confirmRerouteMode();
+        return;
+    }
+
+    inRerouteMode = true;
+    mapScene->setMultiStreetSelectMode(true);
+    ui->buttonCancel->setEnabled(true);
+    ui->buttonReroute->setText("Potvrdit objížďku");
+}
+
+void MainWindow::cancelRerouteMode()
+{
+    if(mapScene == nullptr) return;
+
+    inRerouteMode = false;
+    ui->buttonCancel->setEnabled(false);
+    ui->buttonReroute->setText("Vytvořit objížďku");
+    ui->rerouteDelay->setValue(5);
+    mapScene->setMultiStreetSelectMode(false);
+}
+
+void MainWindow::confirmRerouteMode()
+{
+    if(mapScene == nullptr) return;
+
+    auto ss = mapScene->getSelectedStreets();
+    auto mainSt = mapScene->getSelectedStreet();
+    mapScene->closeSelectedStreet();
+    cancelRerouteMode();
+}
+
 void MainWindow::selectStreet(Street *street)
 {
+    cancelRerouteMode();
     if(street == nullptr){
         ui->streetParams->setEnabled(false);
         ui->streetName->setText("Nastavení průjezdnosti");

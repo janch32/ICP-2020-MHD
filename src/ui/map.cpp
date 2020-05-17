@@ -16,6 +16,7 @@ Map::Map(StreetList streets, QObject *parent) : QGraphicsScene(parent)
 {
     selectedMapStreet = nullptr;
     selectedMapBus = nullptr;
+    multiStreetSelectMode = false;
 
     this->setBackgroundBrush(QBrush(QColor(210, 210, 210)));
     for(const auto s: streets){
@@ -23,16 +24,21 @@ Map::Map(StreetList streets, QObject *parent) : QGraphicsScene(parent)
     }
 }
 
-Map::~Map()
-{
-
-}
-
 void Map::changeStreetTraffic(int traffic)
 {
     if(selectedMapStreet == nullptr) return;
     selectedMapStreet->getStreet()->setTraffic(traffic);
     invalidate();
+}
+
+void Map::closeSelectedStreet()
+{
+    if(selectedMapStreet == nullptr) return;
+
+    selectedMapStreet->setClosed(true);
+    invalidate(selectedMapStreet->boundingRect());
+    selectedMapStreet = nullptr;
+    emit streetSelected(nullptr);
 }
 
 void Map::updateBus(int id, QPoint pos)
@@ -82,6 +88,33 @@ void Map::highlightStreet(QString streetId)
     }
 }
 
+QList<MapStreet *> Map::getSelectedStreets() const
+{
+    return selectedStreets;
+}
+
+Street *Map::getSelectedStreet() const
+{
+    if(selectedMapStreet == nullptr) return nullptr;
+    return selectedMapStreet->getStreet();
+}
+
+bool Map::getMultiStreetSelectMode() const
+{
+    return multiStreetSelectMode;
+}
+
+void Map::setMultiStreetSelectMode(bool value)
+{
+    for(auto ss: selectedStreets){
+        ss->setHighlighted(false);
+        invalidate(ss->boundingRect());
+    }
+    selectedStreets.clear();
+
+    multiStreetSelectMode = value;
+}
+
 void Map::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     auto item = itemAt(mouseEvent->scenePos(), QTransform());
@@ -90,13 +123,30 @@ void Map::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
         if(MapBus *b = dynamic_cast<MapBus *>(i)){
             b->setSelected(false);
         }else if(MapStreet *s = dynamic_cast<MapStreet *>(i)){
+            if(multiStreetSelectMode) continue;
             s->setHighlighted(false);
             s->setSelected(false);
         }
     }
 
+    auto preselectedMapStreet = dynamic_cast<MapStreet *>(item);
+
+    if(multiStreetSelectMode){
+        if(preselectedMapStreet != nullptr && !selectedStreets.contains(preselectedMapStreet)){
+            preselectedMapStreet->setHighlighted(true);
+            selectedStreets.append(preselectedMapStreet);
+            invalidate(preselectedMapStreet->boundingRect());
+        }
+        return;
+    }
+
+    // Zamezit vybrání zavřené ulice
+    if(preselectedMapStreet != nullptr && preselectedMapStreet->getClosed()){
+        preselectedMapStreet = nullptr;
+    }
+
     selectedMapBus = dynamic_cast<MapBus *>(item);
-    selectedMapStreet = dynamic_cast<MapStreet *>(item);
+    selectedMapStreet = preselectedMapStreet;
 
     if(selectedMapStreet != nullptr){
         selectedMapStreet->setSelected(true);

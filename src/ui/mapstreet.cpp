@@ -22,6 +22,7 @@ MapStreet::MapStreet(Street *street, QGraphicsItem *parent): QGraphicsObject(par
     this->street = street;
     selected = false;
     highlighted = false;
+    closed = false;
 
     QFont font;
     font.setPixelSize(10);
@@ -60,6 +61,9 @@ void MapStreet::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
     QColor streetColor(100, 100, 255);
     if(highlighted){
         streetColor = highlightBrush.color();
+    }else if(closed){
+        streetColor = blackBrush.color();
+        painter->setPen(QPen(blackBrush.color()));
     }else if(!selected){
         auto traffic = street->getTraffic()/300.0;
         if(traffic > 1) traffic = 1.0;
@@ -73,7 +77,7 @@ void MapStreet::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidg
         painter->drawEllipse(busStop, 6, 6);
     }
 
-    painter->fillPath(namePath, selected ? whiteBrush : blackBrush);
+    painter->fillPath(namePath, (selected || closed) ? whiteBrush : blackBrush);
 }
 
 QRectF MapStreet::boundingRect() const
@@ -109,4 +113,14 @@ bool MapStreet::getHighlighted() const
 void MapStreet::setHighlighted(bool value)
 {
     highlighted = value;
+}
+
+bool MapStreet::getClosed() const
+{
+    return closed;
+}
+
+void MapStreet::setClosed(bool value)
+{
+    closed = value;
 }

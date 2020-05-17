@@ -75,6 +75,18 @@ public:
      */
     void setHighlighted(bool value);
 
+    /**
+     * @brief Získat, zda je ulice užavřena
+     * @return Je ulice uzavřena
+     */
+    bool getClosed() const;
+
+    /**
+     * @brief Nastavit, zda má být ulice uzavřena
+     * @param Má být ulice uzavřena
+     */
+    void setClosed(bool value);
+
 private:
     /**
      * @brief cesta pro kreslení tvaru ulice
@@ -95,6 +107,11 @@ private:
      * @brief Je ulice vybrána
      */
     bool selected;
+
+    /**
+     * @brief Je ulice uzavřena
+     */
+    bool closed;
 
     /**
      * @brief Je ulice zvýrazněna
