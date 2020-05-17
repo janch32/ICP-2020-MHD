@@ -3,7 +3,7 @@
  *
  * @author Michal Krůl (xkrulm00)
  *
- * TODO
+ * Definice třídy reprezentující interní eventy simulace
  */
 
 #ifndef EVENTTABLE_H

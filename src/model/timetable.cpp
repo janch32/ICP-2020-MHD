@@ -74,7 +74,6 @@ QList<TimetableCell> *TimetableEntry::GetCells(){
     return &cells;
 }
 
-
 Timetable::Timetable()
 {
 

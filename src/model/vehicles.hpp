@@ -3,7 +3,7 @@
  *
  * @author Michal Krůl (xkrulm00)
  *
- * TODO
+ * Definice třídy obsahující seznam spojů na trase (v simulaci)
  */
 
 #ifndef VEHICLES

@@ -15,6 +15,7 @@
 const QBrush MapStreet::highlightBrush = QBrush(QColor(246, 229, 141));
 const QBrush MapStreet::selectBrush = QBrush(QColor(200, 200, 255));
 const QBrush MapStreet::blackBrush = QBrush(QColor(0, 0, 0));
+const QBrush MapStreet::closedBrush = QBrush(QColor(170, 170, 170));
 const QBrush MapStreet::whiteBrush = QBrush(QColor(255, 255, 255));
 
 MapStreet::MapStreet(Street *street, QGraphicsItem *parent): QGraphicsObject(parent)
@@ -55,15 +56,14 @@ MapStreet::MapStreet(Street *street, QGraphicsItem *parent): QGraphicsObject(par
 
 void MapStreet::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    painter->setPen(QPen(selected ? whiteBrush.color() : selectBrush.color(), 3));
+    painter->setPen(QPen((selected || closed) ? whiteBrush.color() : selectBrush.color(), 3));
     painter->setRenderHints(QPainter::Antialiasing);
 
     QColor streetColor(100, 100, 255);
     if(highlighted){
         streetColor = highlightBrush.color();
     }else if(closed){
-        streetColor = blackBrush.color();
-        painter->setPen(QPen(blackBrush.color()));
+        streetColor = closedBrush.color();
     }else if(!selected){
         auto traffic = street->getTraffic()/300.0;
         if(traffic > 1) traffic = 1.0;

@@ -3,7 +3,7 @@
  *
  * @author Michal Krůl (xkrulm00)
  *
- * TODO
+ * Definice třídy, která obsahuje seznam ulic v simulaci
  */
 
 #ifndef STREETS

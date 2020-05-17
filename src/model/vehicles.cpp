@@ -3,7 +3,7 @@
  *
  * @author Michal Krůl (xkrulm00)
  *
- * TODO
+ * Implementace metod třídy obsahující seznam spojů na trase (v simulaci)
  */
 
 #include <map>

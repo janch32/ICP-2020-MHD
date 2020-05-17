@@ -42,6 +42,29 @@ private:
      * @brief seznam vozidel v simulaci
      */
     Vehicles vehicles;
+    /**
+     * @brief Užavřít ulici a aplikovat změnu trasy na konkrétní trasu linky
+     * @param route Trasa linky
+     * @param street Uzavřená ulice
+     * @param altRoute Objížďka uzavřené ulice
+     */
+    void CloseStreetInRoute(LineRoute *route, Street *street, QList<Street *> altRoute);
+    /**
+     * @brief Opravit jízdní řád při uzavření ulice a přidat zpoždění
+     * @param tt Reference na jízdní řád linky
+     * @param closedPos Původní index uzavřené ulice v trase
+     * @param lineRoute Nová trasa linky
+     * @param delayMinutes Zpoždění vytvořené uzavřením ulice
+     */
+    void FixRerouteTimetable(Timetable *tt, int closedPos, LineRoute lineRoute, int delayMinutes);
+    /**
+     * @brief Opravit položku jízdního řádu při uzavření ulice a přidat zpoždění
+     * @param entry Reference na položku v jízdním řádu
+     * @param closedPos Původní index uzavřené ulice v trase
+     * @param lineRoute Nová trasa linky
+     * @param delayMinutes Zpoždění vytvořené uzavřením ulice
+     */
+    void FixRerouteTimetableEntry(TimetableEntry *entry, int closedPos, LineRoute lineRoute, int delayMinutes);
 public:
     /**
      * @brief seznam všech vozidel na mapě s jejich aktuální polohou
@@ -95,10 +118,13 @@ public:
      */
     int vehicle_count = 0;
     /**
-     * @brief TODO: Změní trasu vozidel
-     * @param no
+     * @brief Užavřít ulici a aplikovat změnu trasy na všechny linky
+     * @param street uzavřená ulice
+     * @param altRoute alternativní cesta pro objížďku ulice. Objížďka musí obsahovat alespoň dvě ulice
+     * @param delayMinutes Zpoždění vytvořené uzavřením ulice
      */
-    void AlternateLineRoute(int no);
+    void CloseStreet(Street *street, QList<Street *> altRoute, int delayMinutes);
+
     /**
      * @brief Provede restart simulace, využívá Restart funkce seznamů
      */

@@ -3,7 +3,7 @@
  *
  * @author Michal Krůl (xkrulm00)
  *
- * TODO
+ * Implementace metod třídy reprezentující interní eventy simulace
  */
 
 #include "eventtable.hpp"

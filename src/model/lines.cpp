@@ -3,7 +3,7 @@
  *
  * @author Michal Krůl (xkrulm00)
  *
- * TODO
+ * Implementace metod třídy, která obsahuje seznam linek
  */
 
 #include "lines.hpp"

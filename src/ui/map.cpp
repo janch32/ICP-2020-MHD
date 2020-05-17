@@ -88,9 +88,14 @@ void Map::highlightStreet(QString streetId)
     }
 }
 
-QList<MapStreet *> Map::getSelectedStreets() const
+QList<Street *> Map::getSelectedStreets() const
 {
-    return selectedStreets;
+    QList<Street *> stList;
+    for(auto mapSs: selectedStreets){
+        stList.append(mapSs->getStreet());
+    }
+
+    return stList;
 }
 
 Street *Map::getSelectedStreet() const
@@ -132,11 +137,15 @@ void Map::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
     auto preselectedMapStreet = dynamic_cast<MapStreet *>(item);
 
     if(multiStreetSelectMode){
-        if(preselectedMapStreet != nullptr && !selectedStreets.contains(preselectedMapStreet)){
-            preselectedMapStreet->setHighlighted(true);
-            selectedStreets.append(preselectedMapStreet);
-            invalidate(preselectedMapStreet->boundingRect());
-        }
+        if(preselectedMapStreet == nullptr) return;
+        if(preselectedMapStreet->getClosed()) return;
+        if(selectedStreets.contains(preselectedMapStreet)) return;
+
+        preselectedMapStreet->setHighlighted(true);
+        selectedStreets.append(preselectedMapStreet);
+        invalidate(preselectedMapStreet->boundingRect());
+
+        emit streetListChanged();
         return;
     }
 

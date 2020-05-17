@@ -129,6 +129,11 @@ private:
     static const QBrush selectBrush;
 
     /**
+     * @brief Štětec použit pro vykreslení uzavřené ulice
+     */
+    static const QBrush closedBrush;
+
+    /**
      * @brief Tmavý štětec
      */
     static const QBrush blackBrush;

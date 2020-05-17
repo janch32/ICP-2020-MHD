@@ -49,6 +49,11 @@ public slots:
     void selectStreet(Street *street);
 
     /**
+     * @brief Nastala změna při výběru ulice, aktualizovat UI
+     */
+    void rerouteSelectionChanged();
+
+    /**
      * @brief Zobrazit informace o spoji
      * @param busId ID spoje v simulaci
      */

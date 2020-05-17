@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mapScene = nullptr;
     selectedBus = -1;
     inRerouteMode = false;
-    lastOpenedPath = "../examples";
+    lastOpenedPath = "./examples";
 
     connect(ui->actionClose, SIGNAL(triggered()), this, SLOT(closeApp()));
     connect(ui->actionOpenSim, SIGNAL(triggered()), this, SLOT(selectSimulationFolder()));
@@ -45,6 +45,13 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::closeApp()
+{
+    QCoreApplication::quit();
+}
+
+// Načítání dat ze složky simulace ============================================
 
 void MainWindow::selectSimulationFolder()
 {
@@ -111,12 +118,15 @@ void MainWindow::loadSimulationData()
 
     connect(mapScene, &Map::streetSelected, this, &MainWindow::selectStreet);
     connect(mapScene, &Map::busSelected, this, &MainWindow::selectBus);
+    connect(mapScene, &Map::streetListChanged, this, &MainWindow::rerouteSelectionChanged);
     connect(ui->streetTraffic, SIGNAL(valueChanged(int)), mapScene, SLOT(changeStreetTraffic(int)));
     simulation.Restart();
     simulation.InitializeSimulation(streets,lines);
     simulation.SetStepTime(10);
     ui->timer->reset();
 }
+
+// Práce s vybranou ulicí =====================================================
 
 void MainWindow::startRerouteMode()
 {
@@ -130,6 +140,7 @@ void MainWindow::startRerouteMode()
     inRerouteMode = true;
     mapScene->setMultiStreetSelectMode(true);
     ui->buttonCancel->setEnabled(true);
+    ui->buttonReroute->setEnabled(false);
     ui->buttonReroute->setText("Potvrdit objížďku");
 }
 
@@ -139,6 +150,7 @@ void MainWindow::cancelRerouteMode()
 
     inRerouteMode = false;
     ui->buttonCancel->setEnabled(false);
+    ui->buttonReroute->setEnabled(true);
     ui->buttonReroute->setText("Vytvořit objížďku");
     ui->rerouteDelay->setValue(5);
     mapScene->setMultiStreetSelectMode(false);
@@ -150,8 +162,14 @@ void MainWindow::confirmRerouteMode()
 
     auto ss = mapScene->getSelectedStreets();
     auto mainSt = mapScene->getSelectedStreet();
+    simulation.CloseStreet(mainSt, ss, ui->rerouteDelay->value());
     mapScene->closeSelectedStreet();
     cancelRerouteMode();
+}
+
+void MainWindow::rerouteSelectionChanged()
+{
+    ui->buttonReroute->setEnabled(mapScene->getSelectedStreets().count() > 1);
 }
 
 void MainWindow::selectStreet(Street *street)
@@ -167,6 +185,8 @@ void MainWindow::selectStreet(Street *street)
         ui->streetTraffic->setValue(street->getTraffic());
     }
 }
+
+// Zobrazení informace o vybreném busu ========================================
 
 void MainWindow::selectBus(int busId)
 {
@@ -195,6 +215,8 @@ void MainWindow::updateBus()
         simulation.GetVehicleById(selectedBus)
     );
 }
+
+// Ovládání simulace ==========================================================
 
 void MainWindow::simulationStep(int seconds)
 {
@@ -229,9 +251,4 @@ void MainWindow::simulationReset(QTime time)
 {
     qDebug() << "Simulation time set:" << time;
     simulation.SetTime(time.hour(), time.minute());
-}
-
-void MainWindow::closeApp()
-{
-    QCoreApplication::quit();
 }

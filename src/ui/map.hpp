@@ -41,7 +41,7 @@ public:
      * @brief Získat seznam vybranch ulic
      * @return Seznam vybraných ulic
      */
-    QList<MapStreet *> getSelectedStreets() const;
+    QList<Street *> getSelectedStreets() const;
 
     /**
      * @brief Záská právě vybranou ulici
@@ -101,6 +101,11 @@ signals:
      *        < 0 pokud jíž není vybrán žádný spoj
      */
     void busSelected(int id);
+
+    /**
+     * @brief Nastala změna v seznamu vybraných ulic
+     */
+    void streetListChanged();
 
 private:
     /**
